@@ -11,8 +11,15 @@ import type { SwiftyPose } from '../types';
 
 interface SwiftyAvatarProps {
   pose: SwiftyPose;
+  /** 'md' (default, §8's 140-200px range) or 'sm' for a smaller seal-style use (e.g. the certificate). */
+  size?: 'md' | 'sm';
   className?: string;
 }
+
+const SIZE_CLASS: Record<'md' | 'sm', string> = {
+  md: 'h-40 w-40 sm:h-48 sm:w-48',
+  sm: 'h-20 w-20 sm:h-24 sm:w-24',
+};
 
 const POSE_LABEL: Record<SwiftyPose, string> = {
   welcome: 'Swifty, waving hello',
@@ -21,9 +28,9 @@ const POSE_LABEL: Record<SwiftyPose, string> = {
   curious: 'Swifty, looking through a magnifying glass',
 };
 
-export default function SwiftyAvatar({ pose, className = '' }: SwiftyAvatarProps) {
+export default function SwiftyAvatar({ pose, size = 'md', className = '' }: SwiftyAvatarProps) {
   return (
-    <div className={`relative flex h-40 w-40 items-end justify-center sm:h-48 sm:w-48 ${className}`}>
+    <div className={`relative flex items-end justify-center ${SIZE_CLASS[size]} ${className}`}>
       <AnimatePresence mode="sync">
         <motion.img
           key={pose}

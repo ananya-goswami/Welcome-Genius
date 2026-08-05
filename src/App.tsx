@@ -11,6 +11,7 @@ import { storyCards } from './data/content';
 import { selectQuizForPath } from './data/quiz';
 import { visibleTo } from './logic/filter';
 import { scoreQuiz, type ScoreResult } from './logic/scoring';
+import { generateCertificateId } from './logic/certificate';
 
 import SplashScreen from './screens/SplashScreen';
 import Filter1Screen from './screens/Filter1Screen';
@@ -27,6 +28,10 @@ export default function App() {
   const [quizAnswers, setQuizAnswers] = useState<QuizAnswers>({});
   const [result, setResult] = useState<ScoreResult | null>(null);
   const [certificateName, setCertificateName] = useState('');
+  // Generated once, at the moment of passing (§7.5) — not on every render,
+  // and not re-generated while the user is still typing their name.
+  const [certificateId, setCertificateId] = useState<string | null>(null);
+  const [completedDate, setCompletedDate] = useState<Date | null>(null);
   // Increments on every failed attempt, never resets (§5.5). Not shown to
   // the user — travels with the Phase 8 logging payload only.
   const [attemptNumber, setAttemptNumber] = useState(1);
@@ -86,7 +91,15 @@ export default function App() {
   }
 
   function handleQuizSubmit() {
-    setResult(scoreQuiz(quizQuestions, quizAnswers));
+    const scored = scoreQuiz(quizQuestions, quizAnswers);
+    setResult(scored);
+    if (scored.passed) {
+      // §7.5: certificate ID and completion date are fixed at the moment of
+      // passing, independent of how long the user takes to type their name.
+      const now = new Date();
+      setCompletedDate(now);
+      setCertificateId(generateCertificateId(path.role, now));
+    }
     setScreen('results');
   }
 
@@ -150,11 +163,15 @@ export default function App() {
       break;
 
     case 'certificate':
+      // certificateId/completedDate are always set by the time screen ===
+      // 'certificate' (only reachable after a pass, which is what sets them)
       activeScreen = (
         <CertificateScreen
           path={path}
           result={result!}
           name={certificateName}
+          certificateId={certificateId!}
+          completedDate={completedDate!}
           onNameSubmit={handleCertificateNameSubmit}
         />
       );
