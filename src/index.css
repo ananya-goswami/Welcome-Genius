@@ -1,0 +1,46 @@
+/* Fonts via @fontsource packages, not a CDN <link>, so dev works offline (§8).
+   Latin subsets only — the full entrypoints ship Devanagari/Cyrillic/Greek/
+   Vietnamese too, which this UI never renders. */
+@import '@fontsource/baloo-2/latin-500.css';
+@import '@fontsource/baloo-2/latin-600.css';
+@import '@fontsource/baloo-2/latin-700.css';
+@import '@fontsource/inter/latin-400.css';
+@import '@fontsource/inter/latin-500.css';
+@import '@fontsource/inter/latin-600.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Brand tokens — docs/GAME_SPEC.md §8. Mirrored in tailwind.config.ts. */
+  :root {
+    --cg-indigo: #4b45a8; /* primary, headers, CTAs */
+    --cg-teal: #7dcfc9; /* accent, progress bar fill, success states */
+    --cg-navy: #232048; /* body text — a dark navy derived from the indigo family, NOT pure black */
+    --cg-cream: #fbf0e4; /* page background */
+    --cg-lilac: #e9e5f7; /* card backgrounds */
+    --cg-white: #ffffff; /* base surfaces */
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cg-cream font-body text-cg-navy antialiased;
+    /* mobile-first: never allow a horizontal scrollbar (CLAUDE.md rule 5) */
+    @apply overflow-x-hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  /* Kill the blue tap flash on mobile so buttons feel native */
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
