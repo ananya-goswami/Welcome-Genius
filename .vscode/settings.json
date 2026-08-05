@@ -1,0 +1,12 @@
+{
+    "liveServer.settings.port": 5501,
+    // Live Server has no compiler, so it cannot serve the TypeScript/JSX in
+    // src/. It is pointed at dist/ — the compiled output — instead. Keep
+    // `npm run watch` running in a terminal so dist/ is rebuilt on each save.
+    "liveServer.settings.root": "/dist",
+    // Always serve dist/index.html, whichever file happens to be focused.
+    "liveServer.settings.file": "index.html",
+    // Let the rebuild finish writing dist/ before the browser reloads,
+    // otherwise Live Server can reload mid-build and briefly 404 the assets.
+    "liveServer.settings.wait": 2000
+}
