@@ -6,7 +6,7 @@
  * themselves (that would be a second, parallel filtering rule — rule 1).
  */
 import { useMemo, useState, type ReactNode } from 'react';
-import type { Screen, UserPath, Role, Gender, QuizAnswers } from './types';
+import type { Screen, UserPath, Role, Gender, QuizAnswer, QuizAnswers } from './types';
 import { storyCards } from './data/content';
 import { selectQuizForPath } from './data/quiz';
 import { visibleTo } from './logic/filter';
@@ -81,6 +81,10 @@ export default function App() {
     setJourneyIndex((i) => Math.max(0, i - 1));
   }
 
+  function handleAnswerChange(questionId: string, answer: QuizAnswer) {
+    setQuizAnswers((prev) => ({ ...prev, [questionId]: answer }));
+  }
+
   function handleQuizSubmit() {
     setResult(scoreQuiz(quizQuestions, quizAnswers));
     setScreen('results');
@@ -130,7 +134,14 @@ export default function App() {
       break;
 
     case 'quiz':
-      activeScreen = <QuizScreen questions={quizQuestions} onSubmit={handleQuizSubmit} />;
+      activeScreen = (
+        <QuizScreen
+          questions={quizQuestions}
+          answers={quizAnswers}
+          onAnswerChange={handleAnswerChange}
+          onSubmit={handleQuizSubmit}
+        />
+      );
       break;
 
     case 'results':
