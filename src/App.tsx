@@ -7,14 +7,17 @@
 export default function App() {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-cg-splash px-6 py-12 text-center">
+      {/* The canvas is larger than Swifty himself now that the former white
+          matte is transparent padding, so a 192/224px canvas lands the mascot
+          at roughly 159/189px — inside §8's 140-200px range. */}
       <img
         src="/swifty/swifty-welcome.png"
         alt="Swifty, the ConveGenius mascot, with wings spread in welcome"
-        className="w-40 max-w-full sm:w-48"
+        className="w-48 max-w-full sm:w-56"
       />
 
       <h1 className="mt-8 font-display text-4xl font-bold tracking-tight text-cg-white sm:text-5xl">
-        Swifty<span className="text-cg-teal">Start</span>
+        Welcome <span className="text-cg-teal">Genius</span>
       </h1>
 
       <p className="mt-3 max-w-xs text-base text-cg-lilac sm:max-w-sm sm:text-lg">
