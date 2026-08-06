@@ -249,11 +249,11 @@ full FTE journey (~12 min) and ~11 cards for Intern (~5–6 min), both
 comfortably inside the ~13-minute journey budget.
 
 ### Module: Welcome (all paths, 2 cards)
-1. *(pose: welcome)* "Hi, I'm Swifty! 👋 Welcome to ConveGenius — the team behind SwiftChat, reaching 150M+ learners across India. Our mission: reach the unreached, and make quality learning a right, not a privilege."
+1. *(pose: welcome)* "Hi, I'm Swifty! 👋 Welcome to ConveGenius, the team behind SwiftChat, reaching 150M+ learners across India. Our mission: reach the unreached, and make quality learning a right, not a privilege."
 2. *(pose: default)* "I'll walk you through everything that matters for your role. Tap through, then a short quiz, then your completion certificate. Ready?"
 
 ### Module: Attendance (all paths, 2 cards)
-3. *(pose: default)* "First things first: download the Keka app. Clock in when you start work and clock out when you're done — every single day."
+3. *(pose: default)* "First things first: download the Keka app. Clock in when you start work and clock out when you're done, every single day."
 4. *(pose: thinking)* "Miss a day? Regularize it on Keka by adding or updating your time entry for that day. Heads up: if a day's left blank by month-end, it gets auto-marked as Earned Leave or Leave Without Pay."
 
 ### Module: Holidays (all paths, 1 card)
@@ -261,13 +261,13 @@ comfortably inside the ~13-minute journey budget.
 
 ### Module: Leaves, Central FTE only (3 cards)
 6. *(pose: default)* "As a Central FTE, you get 32 leaves a year: 15 Earned, 8 Sick, 9 Casual."
-7. *(pose: thinking)* "Sick and Casual leave lapse at year-end — no carry forward. But Earned Leave is different: you can carry forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years)."
+7. *(pose: thinking)* "Sick and Casual leave lapse at year-end; no carry forward. But Earned Leave is different: you can carry forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years)."
 8. *(pose: default)* "One more perk: if you leave the company, you can encash your unused Earned Leave at your last drawn basic pay."
 
 ### Module: Leaves, State FTE only (3 cards)
 6. *(pose: default)* "As a State FTE, you get 27 leaves a year: 15 Earned, 6 Sick, 6 Casual."
-7. *(pose: thinking)* "Sick and Casual leave lapse at year-end — no carry forward. Earned Leave carries forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years)."
-8. *(pose: default)* "All leave — any type — can be taken in half-day or full-day chunks, and always needs your manager's approval, or it counts as unauthorized absence."
+7. *(pose: thinking)* "Sick and Casual leave lapse at year-end; no carry forward. Earned Leave carries forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years)."
+8. *(pose: default)* "All leave (any type) can be taken in half-day or full-day chunks, and always needs your manager's approval, or it counts as unauthorized absence."
 
 ### Module: Leaves, Intern only (1 card)
 6. *(pose: default)* "As an Intern, you get 1 leave per month, pro-rata, in half-day or full-day increments. Simple as that!"
@@ -288,19 +288,19 @@ comfortably inside the ~13-minute journey budget.
 12/14. *(pose: default)* "You're on probation for a period set in your offer letter (it varies by department). Pass it, and you'll get an automatic confirmation email. If it needs extending, your manager will tell you at least a week ahead."
 
 ### Module: POSH (all paths, 2 cards)
-13/15. *(pose: default)* "ConveGenius is a POSH-compliant workplace — zero tolerance for sexual harassment, and everyone has the right to work with dignity."
-14/16. *(pose: thinking)* "If you ever need to raise a concern, reach out to reachout@convegenius.ai or any Internal Committee member — Harshali Dalal (President), Tanvi Butalia, Sri Nitya A, Utsav Thapliyal, Nitin Jain, or Anadya Girotra."
+13/15. *(pose: default)* "ConveGenius is a POSH-compliant workplace: zero tolerance for sexual harassment, and everyone has the right to work with dignity."
+14/16. *(pose: thinking)* "If you ever need to raise a concern, reach out to reachout@convegenius.ai or any Internal Committee member: Harshali Dalal (President), Tanvi Butalia, Sri Nitya A, Utsav Thapliyal, Nitin Jain, or Anadya Girotra."
 
 ### Module: Child Protection (all paths, 1 card)
-15/17. *(pose: default)* "Every child who comes into contact with ConveGenius deserves safety and dignity. We hold a zero-tolerance stance on abuse, exploitation, and neglect — for all our stakeholders."
+15/17. *(pose: default)* "Every child who comes into contact with ConveGenius deserves safety and dignity. We hold a zero-tolerance stance on abuse, exploitation, and neglect, for all our stakeholders."
 
 ### Module: On the Move, FTE only (2 cards)
-16/18. *(pose: default)* "Traveling for work? Book via the Domestic Travel Policy on Keka — accommodation priority is Guest House first, then Service Apartment, then Hotel, and food's covered too (just skip the alcohol/tobacco on the bill)."
-17/19. *(pose: default)* "Local commute for official work? Claim it: ₹10/km by four-wheeler, ₹5/km by two-wheeler, or actuals for cabs/autos — all through Keka within 30 days of the expense."
+16/18. *(pose: default)* "Traveling for work? Book via the Domestic Travel Policy on Keka: accommodation priority is Guest House first, then Service Apartment, then Hotel, and food's covered too (just skip the alcohol/tobacco on the bill)."
+17/19. *(pose: default)* "Local commute for official work? Claim it: ₹10/km by four-wheeler, ₹5/km by two-wheeler, or actuals for cabs/autos, all through Keka within 30 days of the expense."
 
 ### Module: Referral, FTE only (2 cards)
-18/20. *(pose: default)* "Know someone great? Refer them through Keka. If they join and complete 90 days, you get a referral award — and so do they get a great place to work!"
-19/21. *(pose: curious)* "Bonus: our 'CG Hire Champs' campaign stacks up your total referral earnings toward mega prizes — from a digital watch all the way up to a Harley Davidson!"
+18/20. *(pose: default)* "Know someone great? Refer them through Keka. If they join and complete 90 days, you get a referral award, and so do they get a great place to work!"
+19/21. *(pose: curious)* "Bonus: our 'CG Hire Champs' campaign stacks up your total referral earnings toward mega prizes, from a digital watch all the way up to a Harley Davidson!"
 
 ### Module: Appraisal, FTE only (1 card)
 20/22. *(pose: default)* "Appraisals run on the Financial Year cycle. To be eligible for this cycle, you'll need to have joined before 30th September."
@@ -309,7 +309,7 @@ comfortably inside the ~13-minute journey budget.
 21/23. *(pose: default)* "Got questions later? Raise a ticket anytime with Team HR, Team Admin, or Team Finance."
 
 ### Module: Wrap-up (all paths, 1 card)
-22/24. *(pose: welcome)* "That's everything for your path! Time for a quick quiz to lock it in — you've got this."
+22/24. *(pose: welcome)* "That's everything for your path! Time for a quick quiz to lock it in; you've got this."
 
 ---
 

@@ -33,7 +33,7 @@ export const storyCards: StoryCard[] = [
     order: 1,
     pose: 'welcome',
     title: 'Welcome to ConveGenius',
-    body: "Hi, I'm Swifty! 👋 Welcome to ConveGenius — the team behind SwiftChat, reaching 150M+ learners across India. Our mission: reach the unreached, and make quality learning a right, not a privilege.",
+    body: "Hi, I'm Swifty! 👋 Welcome to ConveGenius, the team behind SwiftChat, reaching 150M+ learners across India. Our mission: reach the unreached, and make quality learning a right, not a privilege.",
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
   {
@@ -53,7 +53,7 @@ export const storyCards: StoryCard[] = [
     order: 3,
     pose: 'default',
     title: 'Clock In With Keka',
-    body: 'First things first: download the Keka app. Clock in when you start work and clock out when you\'re done — every single day.',
+    body: 'First things first: download the Keka app. Clock in when you start work and clock out when you\'re done, every single day.',
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
   {
@@ -93,7 +93,7 @@ export const storyCards: StoryCard[] = [
     order: 7,
     pose: 'thinking',
     title: 'Carry Forward Rules',
-    body: 'Sick and Casual leave lapse at year-end — no carry forward. But Earned Leave is different: you can carry forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years).',
+    body: 'Sick and Casual leave lapse at year-end; no carry forward. But Earned Leave is different: you can carry forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years).',
     appliesTo: { roles: ['central'] },
   },
   {
@@ -122,7 +122,7 @@ export const storyCards: StoryCard[] = [
     order: 7,
     pose: 'thinking',
     title: 'Carry Forward Rules',
-    body: 'Sick and Casual leave lapse at year-end — no carry forward. Earned Leave carries forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years).',
+    body: 'Sick and Casual leave lapse at year-end; no carry forward. Earned Leave carries forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years).',
     appliesTo: { roles: ['state'] },
   },
   {
@@ -131,7 +131,7 @@ export const storyCards: StoryCard[] = [
     order: 8,
     pose: 'default',
     title: 'Taking Leave',
-    body: 'All leave — any type — can be taken in half-day or full-day chunks, and always needs your manager\'s approval, or it counts as unauthorized absence.',
+    body: 'All leave (any type) can be taken in half-day or full-day chunks, and always needs your manager\'s approval, or it counts as unauthorized absence.',
     appliesTo: { roles: ['state'] },
   },
 
@@ -224,7 +224,7 @@ export const storyCards: StoryCard[] = [
     order: 15,
     pose: 'default',
     title: 'A POSH-Compliant Workplace',
-    body: 'ConveGenius is a POSH-compliant workplace — zero tolerance for sexual harassment, and everyone has the right to work with dignity.',
+    body: 'ConveGenius is a POSH-compliant workplace: zero tolerance for sexual harassment, and everyone has the right to work with dignity.',
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
   {
@@ -233,7 +233,7 @@ export const storyCards: StoryCard[] = [
     order: 16,
     pose: 'thinking',
     title: 'Raising a Concern',
-    body: 'If you ever need to raise a concern, reach out to reachout@convegenius.ai or any Internal Committee member — Harshali Dalal (President), Tanvi Butalia, Sri Nitya A, Utsav Thapliyal, Nitin Jain, or Anadya Girotra.',
+    body: 'If you ever need to raise a concern, reach out to reachout@convegenius.ai or any Internal Committee member: Harshali Dalal (President), Tanvi Butalia, Sri Nitya A, Utsav Thapliyal, Nitin Jain, or Anadya Girotra.',
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
@@ -244,7 +244,7 @@ export const storyCards: StoryCard[] = [
     order: 17,
     pose: 'default',
     title: 'Child Protection',
-    body: 'Every child who comes into contact with ConveGenius deserves safety and dignity. We hold a zero-tolerance stance on abuse, exploitation, and neglect — for all our stakeholders.',
+    body: 'Every child who comes into contact with ConveGenius deserves safety and dignity. We hold a zero-tolerance stance on abuse, exploitation, and neglect, for all our stakeholders.',
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
@@ -255,7 +255,7 @@ export const storyCards: StoryCard[] = [
     order: 18,
     pose: 'default',
     title: 'Traveling for Work',
-    body: "Traveling for work? Book via the Domestic Travel Policy on Keka — accommodation priority is Guest House first, then Service Apartment, then Hotel, and food's covered too (just skip the alcohol/tobacco on the bill).",
+    body: "Traveling for work? Book via the Domestic Travel Policy on Keka: accommodation priority is Guest House first, then Service Apartment, then Hotel, and food's covered too (just skip the alcohol/tobacco on the bill).",
     appliesTo: { roles: ['central', 'state'] },
   },
   {
@@ -264,7 +264,7 @@ export const storyCards: StoryCard[] = [
     order: 19,
     pose: 'default',
     title: 'Local Conveyance',
-    body: 'Local commute for official work? Claim it: ₹10/km by four-wheeler, ₹5/km by two-wheeler, or actuals for cabs/autos — all through Keka within 30 days of the expense.',
+    body: 'Local commute for official work? Claim it: ₹10/km by four-wheeler, ₹5/km by two-wheeler, or actuals for cabs/autos, all through Keka within 30 days of the expense.',
     appliesTo: { roles: ['central', 'state'] },
   },
 
@@ -275,7 +275,7 @@ export const storyCards: StoryCard[] = [
     order: 20,
     pose: 'default',
     title: 'Refer & Earn',
-    body: 'Know someone great? Refer them through Keka. If they join and complete 90 days, you get a referral award — and so do they get a great place to work!',
+    body: 'Know someone great? Refer them through Keka. If they join and complete 90 days, you get a referral award, and so do they get a great place to work!',
     appliesTo: { roles: ['central', 'state'] },
   },
   {
@@ -284,7 +284,7 @@ export const storyCards: StoryCard[] = [
     order: 21,
     pose: 'curious',
     title: 'CG Hire Champs',
-    body: "Bonus: our 'CG Hire Champs' campaign stacks up your total referral earnings toward mega prizes — from a digital watch all the way up to a Harley Davidson!",
+    body: "Bonus: our 'CG Hire Champs' campaign stacks up your total referral earnings toward mega prizes, from a digital watch all the way up to a Harley Davidson!",
     appliesTo: { roles: ['central', 'state'] },
   },
 
@@ -317,7 +317,7 @@ export const storyCards: StoryCard[] = [
     order: 24,
     pose: 'welcome',
     title: 'Ready for the Quiz?',
-    body: "That's everything for your path! Time for a quick quiz to lock it in — you've got this.",
+    body: "That's everything for your path! Time for a quick quiz to lock it in; you've got this.",
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 ];
