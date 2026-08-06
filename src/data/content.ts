@@ -62,7 +62,7 @@ export const storyCards: StoryCard[] = [
     order: 4,
     pose: 'thinking',
     title: 'Missed a Day?',
-    body: "Miss a day? You can regularize it on Keka. But heads up — if a day's left blank by month-end, it gets auto-marked as Earned Leave or Leave Without Pay.",
+    body: "Miss a day? Regularize it on Keka by adding or updating your time entry for that day. Heads up: if a day's left blank by month-end, it gets auto-marked as Earned Leave or Leave Without Pay.",
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
@@ -182,7 +182,7 @@ export const storyCards: StoryCard[] = [
     order: 11,
     pose: 'default',
     title: 'Check Your Salary',
-    body: "Head to 'My Finances' on Keka to check your salary breakup matches your offer letter.",
+    body: "Head to 'My Finances' on Keka to check your salary breakup matches your offer letter. Salary lands on the 5th of every month.",
     appliesTo: { roles: ['central', 'state'] },
   },
   {
@@ -191,7 +191,7 @@ export const storyCards: StoryCard[] = [
     order: 12,
     pose: 'thinking',
     title: 'Tax & Payroll',
-    body: 'Pick your tax regime: New regime = no declarations needed. Old regime = declare your taxes and upload proofs before the deadline Keka shows you. Payroll runs monthly, salary lands on the 5th.',
+    body: 'Pick your tax regime: New regime = no declarations needed. Old regime = declare your taxes on Keka by the last working day of the month, then upload your proof documents by the deadline Keka shows you. Payroll runs monthly, salary lands on the 5th.',
     appliesTo: { roles: ['central', 'state'] },
   },
 
@@ -202,7 +202,7 @@ export const storyCards: StoryCard[] = [
     order: 13,
     pose: 'default',
     title: 'Health Insurance',
-    body: "You're covered! Health insurance includes you, your spouse, and up to 4 dependent children. Band 1–6 = ₹5 lakh cover, Band 7 and above = ₹10 lakh.",
+    body: "You're covered from day 1 of joining! Health insurance includes you, your spouse, and up to 4 dependent children. Band 1–6 = ₹5 lakh cover, Band 7 and above = ₹10 lakh.",
     appliesTo: { roles: ['central', 'state'] },
   },
 

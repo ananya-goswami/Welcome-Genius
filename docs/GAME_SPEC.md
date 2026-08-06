@@ -203,10 +203,13 @@ you the right parental leave info." Sets `path.gender`.
 - On last card, "Next" becomes "Start Quiz →" and transitions to QUIZ.
 
 ### 5.5 Quiz
-- Question set = `selectQuizForPath(path)` (§7.3), fixed order (do not
-  shuffle question order, shuffle MC option order only, so "no trick
-  options" stays true and correctness stays traceable while still
-  avoiding rote memorization of option position).
+- Question set = `selectQuizForPath(path)` (§7.3), which now randomizes
+  both *which* eligible questions are drawn and their order on each
+  call, so repeat attempts don't show the identical quiz. That draw is
+  fixed once made, a re-render mid-attempt must not reshuffle it. MC
+  *option* order is a separate, independent shuffle at render time, so
+  "no trick options" stays true and correctness stays traceable while
+  still avoiding rote memorization of option position.
 - One question per screen, progress bar = phase 2 of 2 (visually
   distinct from the journey progress bar, e.g. different fill color).
 - On submit of the final question, compute `score` and route to RESULTS.
@@ -251,7 +254,7 @@ comfortably inside the ~13-minute journey budget.
 
 ### Module: Attendance (all paths, 2 cards)
 3. *(pose: default)* "First things first: download the Keka app. Clock in when you start work and clock out when you're done — every single day."
-4. *(pose: thinking)* "Miss a day? You can regularize it on Keka. But heads up — if a day's left blank by month-end, it gets auto-marked as Earned Leave or Leave Without Pay."
+4. *(pose: thinking)* "Miss a day? Regularize it on Keka by adding or updating your time entry for that day. Heads up: if a day's left blank by month-end, it gets auto-marked as Earned Leave or Leave Without Pay."
 
 ### Module: Holidays (all paths, 1 card)
 5. *(pose: default)* "ConveGenius follows a January–December calendar year with 10 fixed holidays. Your HR calendar on Keka has the full list."
@@ -275,11 +278,11 @@ comfortably inside the ~13-minute journey budget.
 8/10. *(pose: default, shown to ALL FTE regardless of gender)* "Adopting? Either parent can take 12 working weeks to bond with their new family member."
 
 ### Module: Finances, FTE only (2 cards)
-9/11. *(pose: default)* "Head to 'My Finances' on Keka to check your salary breakup matches your offer letter."
-10/12. *(pose: thinking)* "Pick your tax regime: New regime = no declarations needed. Old regime = declare your taxes and upload proofs before the deadline Keka shows you. Payroll runs monthly, salary lands on the 5th."
+9/11. *(pose: default)* "Head to 'My Finances' on Keka to check your salary breakup matches your offer letter. Salary lands on the 5th of every month."
+10/12. *(pose: thinking)* "Pick your tax regime: New regime = no declarations needed. Old regime = declare your taxes on Keka by the last working day of the month, then upload your proof documents by the deadline Keka shows you. Payroll runs monthly, salary lands on the 5th."
 
 ### Module: Insurance, FTE only (1 card)
-11/13. *(pose: default)* "You're covered! Health insurance includes you, your spouse, and up to 4 dependent children. Band 1–6 = ₹5 lakh cover, Band 7 and above = ₹10 lakh."
+11/13. *(pose: default)* "You're covered from day 1 of joining! Health insurance includes you, your spouse, and up to 4 dependent children. Band 1–6 = ₹5 lakh cover, Band 7 and above = ₹10 lakh."
 
 ### Module: Probation, FTE only (1 card)
 12/14. *(pose: default)* "You're on probation for a period set in your offer letter (it varies by department). Pass it, and you'll get an automatic confirmation email. If it needs extending, your manager will tell you at least a week ahead."
@@ -346,6 +349,24 @@ comfortably inside the ~13-minute journey budget.
 - Q-MC-7 `[Appraisal]` "You must have joined before which date to be eligible for the current Financial Year appraisal cycle?"
   Options: 31st March / 30th June / **30th September** / 31st December → correct: 30th September
   appliesTo: roles [central, state]
+- Q-MC-10 `[Finances]` "What happens if you pick the New Tax Regime on Keka?"
+  Options: **No declarations needed** / You must still declare by Jan 31 / You lose EPF benefits / A higher tax rate always applies → correct: option 1
+  appliesTo: roles [central, state]
+- Q-MC-11 `[Insurance]` "What's the insured amount for employees in Band 1 to 6?"
+  Options: ₹2 lakh / **₹5 lakh** / ₹10 lakh / ₹15 lakh → correct: ₹5 lakh
+  appliesTo: roles [central, state]
+- Q-MC-12 `[On the Move]` "What's the accommodation priority order for company travel?"
+  Options: Hotel, then Service Apartment, then Guest House / **Guest House, then Service Apartment, then Hotel** / Service Apartment only / Employee's choice, any option → correct: option 2
+  appliesTo: roles [central, state]
+- Q-MC-13 `[On the Move]` "How much can you claim per km for local travel by two-wheeler?"
+  Options: ₹3 / **₹5** / ₹8 / ₹10 → correct: ₹5
+  appliesTo: roles [central, state]
+- Q-MC-14 `[Referral]` "What's the top mega prize in the 'CG Hire Champs' referral campaign?"
+  Options: Digital Watch / iPhone / **Harley Davidson Bike** / Gift Voucher → correct: Harley Davidson Bike
+  appliesTo: roles [central, state]
+- Q-MC-15 `[Leaves]` "If you leave the company, how can you encash unused Earned Leave?" (Central only, the encashment fact is taught only on the Central Leaves card, not State's)
+  Options: **At your last drawn basic pay** / At double your basic pay / You can't encash it / Only after 5 years of service → correct: option 1
+  appliesTo: roles [central]
 
 **MC, role-specific leave totals (ONE of these two is used, per role)**
 - Q-MC-8a `[Leaves]` "How many total annual leaves does a Central FTE get?"
@@ -365,11 +386,19 @@ comfortably inside the ~13-minute journey budget.
   appliesTo: roles [central, state, intern]
 - Q-TF-2 `[Holidays]` "ConveGenius follows a January–December calendar year." → **True**
   appliesTo: roles [central, state, intern]
+- Q-TF-8 `[Holidays]` "Your HR calendar on Keka has the full list of fixed holidays." → **True**
+  appliesTo: roles [central, state, intern]
 
 **TF, FTE only**
 - Q-TF-3 `[Leaves]` "Casual Leave and Sick Leave can be carried forward to the next year." → **False** (they lapse)
   appliesTo: roles [central, state]
 - Q-TF-4 `[Adoption]` "Adoption leave (12 weeks) is available only to women employees." → **False** (either parent)
+  appliesTo: roles [central, state]
+- Q-TF-9 `[Probation]` "If your probation needs extending, your manager will tell you on the same day it ends." → **False** (at least a week ahead)
+  appliesTo: roles [central, state]
+- Q-TF-10 `[On the Move]` "ConveGenius's travel food allowance covers alcohol and tobacco." → **False** (explicitly excluded)
+  appliesTo: roles [central, state]
+- Q-TF-11 `[Referral]` "You can earn a referral award once your referred candidate completes 90 days at ConveGenius." → **True**
   appliesTo: roles [central, state]
 
 **TF, gender-specific (ONE of these two is used, per gender)**
@@ -378,9 +407,11 @@ comfortably inside the ~13-minute journey budget.
 - Q-TF-5b `[Parental]` "Paternity leave can be carried forward to the next year if unused." → **False** (must be used within 2 months, no carry forward)
   appliesTo: roles [central, state], genders [man]
 
-**TF, Intern only**
+**TF, Helpdesk (widened to all roles: the Helpdesk journey card is taught to every path, §6)**
 - Q-TF-6 `[Helpdesk]` "You can raise queries with HR, Admin, or Finance teams via a ticket." → **True**
-  appliesTo: roles [intern]
+  appliesTo: roles [central, state, intern]
+
+**TF, Intern only**
 - Q-TF-7 `[Attendance]` "Interns also need to mark attendance on Keka." → **True**
   appliesTo: roles [intern]
 
@@ -397,32 +428,44 @@ comfortably inside the ~13-minute journey budget.
 
 ### 7.3 Assembly per path, `selectQuizForPath(path)`
 
-Use this table exactly. It is the final, correct composition, do not
-re-derive it from `appliesTo` filtering alone (see implementation note
-below).
+**Randomized draw** (superseding the original fixed-list design, per
+explicit product decision: repeat playthroughs were showing the exact
+same 12/8 questions every time). Counts, category composition, and
+every gating guarantee below are unchanged from the original design;
+only *which* eligible questions fill each category is now randomized
+per call.
 
-| Path | MC, 7 (FTE) / 5 (Intern) | TF, 4 (FTE) / 2 (Intern) | Match, 1 | Total |
+Two slots per path are still a mandatory, deterministic single pick,
+there is exactly one valid question for these, not a pool to choose
+from:
+- the role-specific leave-total MC (MC-8a central / MC-8b state / MC-9 intern)
+- the gender-specific parental TF (TF-5a woman / TF-5b man), FTE only
+- the role-specific Match question (always exactly one per role)
+
+Every other MC/TF slot is filled by sampling without replacement from
+every question in the bank that passes `visibleTo()` for that path,
+excluding whatever is already mandatory:
+
+| Path | MC total | TF total | Match | Total |
 |---|---|---|---|---|
-| Central + Woman | MC-1, MC-2, MC-3, MC-4, MC-6, MC-7, MC-8a | TF-1, TF-2, TF-3, TF-5a | MATCH-central | 12 |
-| Central + Man | MC-1, MC-2, MC-3, MC-4, MC-6, MC-7, MC-8a | TF-1, TF-2, TF-3, TF-5b | MATCH-central | 12 |
-| State + Woman | MC-1, MC-2, MC-3, MC-4, MC-6, MC-7, MC-8b | TF-1, TF-2, TF-3, TF-5a | MATCH-state | 12 |
-| State + Man | MC-1, MC-2, MC-3, MC-4, MC-6, MC-7, MC-8b | TF-1, TF-2, TF-3, TF-5b | MATCH-state | 12 |
-| Intern | MC-1, MC-2, MC-3, MC-4, MC-9 | TF-1, TF-6 | MATCH-intern | 8 |
+| Central (either gender) | 7 (1 mandatory + 6 sampled) | 4 (1 mandatory + 3 sampled) | MATCH-central | 12 |
+| State (either gender) | 7 (1 mandatory + 6 sampled) | 4 (1 mandatory + 3 sampled) | MATCH-state | 12 |
+| Intern | 5 (1 mandatory + 4 sampled) | 2 (0 mandatory + 2 sampled) | MATCH-intern | 8 |
 
-Notes on what's deliberately left out of the fixed set (still fine,
-not every journey card needs a matching quiz item): TF-4 (Adoption) and
-TF-7 (Intern attendance) are not used, to keep counts exact at 12 and 8.
-Adoption content is still taught in the journey; it's just not one of
-the 12 quiz items.
+TF-4 (Adoption) and TF-7 (Intern attendance), excluded from the old
+fixed lists purely to keep counts exact, are now back in their
+respective pools since there's no longer a fixed-count constraint
+forcing their exclusion.
 
-> Implementation note: build `selectQuizForPath()` as an explicit
-> lookup (a small switch/object keyed by `${role}-${gender ?? 'none'}`)
-> returning a fixed, named list of question IDs per the table above;
-> do NOT derive it via generic `appliesTo` filtering alone, because the
-> role-specific MC/Match substitution (8a vs 8b, central vs state match)
-> needs explicit selection, not just inclusion filtering. Use
-> `visibleTo()` only to double check no wrong-path item slipped in
-> (assert in dev mode that every selected question passes `visibleTo`).
+> Implementation note: `selectQuizForPath()` still selects the three
+> mandatory slots explicitly (an object keyed by role/gender), for the
+> same reason as the original design, generic `appliesTo` filtering
+> alone can't know which of two mutually-applicable-by-role variants
+> (8a vs 8b, central vs state match) to prefer. Every remaining slot is
+> `visibleTo()`-filtered then randomly sampled. Dev-mode assertions
+> check: no wrong-path question slipped in, exact total count, no
+> duplicate question drawn twice, and each pool has enough eligible
+> candidates to fill its sampled slots.
 
 ### 7.4 Scoring
 - Each MC/TF question = 1 point if correct.
