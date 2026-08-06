@@ -11,7 +11,8 @@ import { storyCards } from './data/content';
 import { selectQuizForPath } from './data/quiz';
 import { visibleTo } from './logic/filter';
 import { scoreQuiz, type ScoreResult } from './logic/scoring';
-import { generateCertificateId } from './logic/certificate';
+import { generateCertificateId, ROLE_LABEL } from './logic/certificate';
+import { logResult } from './logic/logResult';
 
 import SplashScreen from './screens/SplashScreen';
 import Filter1Screen from './screens/Filter1Screen';
@@ -93,13 +94,34 @@ export default function App() {
   function handleQuizSubmit() {
     const scored = scoreQuiz(quizQuestions, quizAnswers);
     setResult(scored);
+
+    let newCertificateId: string | undefined;
     if (scored.passed) {
       // §7.5: certificate ID and completion date are fixed at the moment of
       // passing, independent of how long the user takes to type their name.
       const now = new Date();
       setCompletedDate(now);
-      setCertificateId(generateCertificateId(path.role, now));
+      newCertificateId = generateCertificateId(path.role, now);
+      setCertificateId(newCertificateId);
     }
+
+    // §10/Phase 8: fires on every submission, pass AND fail, not deferred
+    // until certificate generation. `certificateName` is virtually always
+    // still empty here, name capture is a later screen reachable only after
+    // a pass, and nothing in this state machine re-submits a quiz after a
+    // name has already been captured, this is an accepted gap in the row's
+    // Name column, not a bug: logResult() is fire-and-forget (not awaited)
+    // so a slow or failed network call can never delay this screen transition.
+    void logResult({
+      certificateId: newCertificateId,
+      name: certificateName,
+      role: ROLE_LABEL[path.role],
+      score: `${scored.score}/${scored.total}`,
+      percentage: `${scored.percentage}%`,
+      result: scored.passed ? 'Pass' : 'Fail',
+      attemptNumber,
+    });
+
     setScreen('results');
   }
 

@@ -110,27 +110,38 @@ export default function MatchQuestionView({ question, value, onChange }: MatchQu
   }
 
   function endDrag(e: ReactPointerEvent<HTMLDivElement>) {
-    setDrag((d) => {
-      if (!d || d.pointerId !== e.pointerId) return d;
-      let target: string | null = null;
-      for (const [left, el] of Object.entries(leftRefs.current)) {
-        if (!el) continue;
-        const r = el.getBoundingClientRect();
-        if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
-          target = left;
-          break;
-        }
+    // Reads `drag`/`placedIds` directly from the render closure rather than
+    // through a setDrag(d => ...) functional updater. This function is
+    // recreated every render and React always attaches the latest version as
+    // the pointerup listener, so the values here are already current; the
+    // updater form was previously used defensively, but it made `commit()`
+    // (which calls the parent's onChange, an App-level setState) run inside
+    // what React treats as a pure state-computation callback, which is
+    // exactly the "Cannot update a component while rendering a different
+    // component" anti-pattern React warns about, since updater functions can
+    // be invoked outside the normal commit lifecycle (e.g. Strict Mode's
+    // double-render checks).
+    if (!drag || drag.pointerId !== e.pointerId) return;
+
+    let target: string | null = null;
+    for (const [left, el] of Object.entries(leftRefs.current)) {
+      if (!el) continue;
+      const r = el.getBoundingClientRect();
+      if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
+        target = left;
+        break;
       }
-      if (target) {
-        const next: Record<string, string> = {};
-        for (const [left, id] of Object.entries(placedIds)) {
-          if (id !== d.instanceId) next[left] = id; // drop this instance's old slot, if any
-        }
-        next[target] = d.instanceId;
-        commit(next);
+    }
+
+    if (target) {
+      const next: Record<string, string> = {};
+      for (const [left, id] of Object.entries(placedIds)) {
+        if (id !== drag.instanceId) next[left] = id; // drop this instance's old slot, if any
       }
-      return null;
-    });
+      next[target] = drag.instanceId;
+      commit(next);
+    }
+    setDrag(null);
   }
 
   function clearSlot(left: string) {
