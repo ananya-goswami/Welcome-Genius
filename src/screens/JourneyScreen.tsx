@@ -1,11 +1,11 @@
 /**
- * §5.4 — tap-through story journey, Phase 3: real 3D perspective card-flip
- * transitions (direction-aware — Next flips one way, Back the other),
+ * §5.4, tap-through story journey, Phase 3: real 3D perspective card-flip
+ * transitions (direction-aware, Next flips one way, Back the other),
  * Swifty pose crossfade (SwiftyAvatar), animated progress bar, and spring
  * tap feedback on the nav buttons.
  *
- * `cards` must already be filtered by visibleTo() and sorted by `order` —
- * this component does not filter; App.tsx is the single source of that
+ * `cards` must already be filtered by visibleTo() and sorted by `order`;
+ * this component does not filter. App.tsx is the single source of that
  * derivation so there is only one place the golden rule is enforced.
  */
 import { useRef, useEffect } from 'react';
@@ -44,7 +44,7 @@ export default function JourneyScreen({ cards, index, onNext, onBack }: JourneyS
   const isLast = index === cards.length - 1;
 
   // Tracks whether the most recent index change was a Next or a Back, purely
-  // to pick which way the 3D flip rotates — compared during render, synced
+  // to pick which way the 3D flip rotates, compared during render, synced
   // after via effect (standard "previous value" pattern).
   const prevIndexRef = useRef(index);
   const direction = index >= prevIndexRef.current ? 1 : -1;

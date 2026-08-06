@@ -1,12 +1,12 @@
 /**
- * Story card content — transcribed verbatim from docs/GAME_SPEC.md §6.
+ * Story card content, transcribed verbatim from docs/GAME_SPEC.md §6.
  * Every `body` string is copied exactly (wording, numbers, punctuation,
- * emoji) from the spec. Do not paraphrase, round, or "improve" any of it —
+ * emoji) from the spec. Do not paraphrase, round, or "improve" any of it;
  * see CLAUDE.md rule 2. `title` fields are my own short UI labels (not a
  * spec fact) added only because StoryCard requires one.
  *
  * `order` values follow the spec's second (".../N") numbering for each
- * module — see the note below — so that filtering by visibleTo() and
+ * module (see the note below) so that filtering by visibleTo() and
  * sorting by `order` reproduces the exact per-path sequence described in
  * §6's pacing note (24 cards for FTE, 11 for Intern).
  *
@@ -14,11 +14,11 @@
  * "7/9", "8/10", etc. Both numbers differ by a constant +2 for every single
  * module all the way through Wrap-up (22/24), which only happens if it's a
  * leftover artifact from an earlier draft where the FTE Leaves module had
- * one card instead of three — not a substantive branch, since Parental/
+ * one card instead of three, not a substantive branch, since Parental/
  * Finances/etc. never apply to Interns (the path the "smaller" number would
  * imply). The larger number is used here as it's the one consistent with
  * the *actual* 3-card Central/State Leaves modules in this version of the
- * spec. Flagging this rather than guessing silently — worth a confirm with
+ * spec. Flagging this rather than guessing silently; worth a confirm with
  * HR if the source deck disagrees.
  * TODO: confirm with HR that the larger (.../N) card-order numbering in §6
  * (Parental through Wrap-up) is correct, given the dual-numbering artifact.
@@ -26,7 +26,7 @@
 import type { StoryCard } from '../types';
 
 export const storyCards: StoryCard[] = [
-  // --- Module: Welcome (all paths — 2 cards) ---
+  // --- Module: Welcome (all paths, 2 cards) ---
   {
     id: 'welcome-1',
     module: 'Welcome',
@@ -46,7 +46,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
-  // --- Module: Attendance (all paths — 2 cards) ---
+  // --- Module: Attendance (all paths, 2 cards) ---
   {
     id: 'attendance-1',
     module: 'Attendance',
@@ -66,7 +66,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
-  // --- Module: Holidays (all paths — 1 card) ---
+  // --- Module: Holidays (all paths, 1 card) ---
   {
     id: 'holidays-1',
     module: 'Holidays',
@@ -77,7 +77,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
-  // --- Module: Leaves — Central FTE only (3 cards) ---
+  // --- Module: Leaves, Central FTE only (3 cards) ---
   {
     id: 'leaves-central-1',
     module: 'Leaves',
@@ -106,7 +106,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central'] },
   },
 
-  // --- Module: Leaves — State FTE only (3 cards) ---
+  // --- Module: Leaves, State FTE only (3 cards) ---
   {
     id: 'leaves-state-1',
     module: 'Leaves',
@@ -135,7 +135,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['state'] },
   },
 
-  // --- Module: Leaves — Intern only (1 card) ---
+  // --- Module: Leaves, Intern only (1 card) ---
   {
     id: 'leaves-intern-1',
     module: 'Leaves',
@@ -146,7 +146,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['intern'] },
   },
 
-  // --- Module: Parental — FTE only, gender-branched (2 cards) ---
+  // --- Module: Parental, FTE only, gender-branched (2 cards) ---
   {
     id: 'parental-maternity',
     module: 'Parental',
@@ -172,10 +172,10 @@ export const storyCards: StoryCard[] = [
     pose: 'default',
     title: 'Adoption Leave',
     body: "Adopting? Either parent can take 12 working weeks to bond with their new family member.",
-    appliesTo: { roles: ['central', 'state'] }, // ALL FTE regardless of gender — no genders filter
+    appliesTo: { roles: ['central', 'state'] }, // ALL FTE regardless of gender, no genders filter
   },
 
-  // --- Module: Finances — FTE only (2 cards) ---
+  // --- Module: Finances, FTE only (2 cards) ---
   {
     id: 'finances-1',
     module: 'Finances',
@@ -195,7 +195,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state'] },
   },
 
-  // --- Module: Insurance — FTE only (1 card) ---
+  // --- Module: Insurance, FTE only (1 card) ---
   {
     id: 'insurance-1',
     module: 'Insurance',
@@ -206,7 +206,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state'] },
   },
 
-  // --- Module: Probation — FTE only (1 card) ---
+  // --- Module: Probation, FTE only (1 card) ---
   {
     id: 'probation-1',
     module: 'Probation',
@@ -217,7 +217,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state'] },
   },
 
-  // --- Module: POSH (all paths — 2 cards) ---
+  // --- Module: POSH (all paths, 2 cards) ---
   {
     id: 'posh-1',
     module: 'POSH',
@@ -237,7 +237,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
-  // --- Module: Child Protection (all paths — 1 card) ---
+  // --- Module: Child Protection (all paths, 1 card) ---
   {
     id: 'child-protection-1',
     module: 'Child Protection',
@@ -248,7 +248,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
-  // --- Module: On the Move — FTE only (2 cards) ---
+  // --- Module: On the Move, FTE only (2 cards) ---
   {
     id: 'travel-1',
     module: 'On the Move',
@@ -268,7 +268,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state'] },
   },
 
-  // --- Module: Referral — FTE only (2 cards) ---
+  // --- Module: Referral, FTE only (2 cards) ---
   {
     id: 'referral-1',
     module: 'Referral',
@@ -288,7 +288,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state'] },
   },
 
-  // --- Module: Appraisal — FTE only (1 card) ---
+  // --- Module: Appraisal, FTE only (1 card) ---
   {
     id: 'appraisal-1',
     module: 'Appraisal',
@@ -299,7 +299,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state'] },
   },
 
-  // --- Module: Helpdesk (all paths — 1 card) ---
+  // --- Module: Helpdesk (all paths, 1 card) ---
   {
     id: 'helpdesk-1',
     module: 'Helpdesk',
@@ -310,7 +310,7 @@ export const storyCards: StoryCard[] = [
     appliesTo: { roles: ['central', 'state', 'intern'] },
   },
 
-  // --- Module: Wrap-up (all paths — 1 card) ---
+  // --- Module: Wrap-up (all paths, 1 card) ---
   {
     id: 'wrapup-1',
     module: 'Wrap-up',

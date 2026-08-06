@@ -1,5 +1,5 @@
 /**
- * Core data model — transcribed exactly from docs/GAME_SPEC.md §3.
+ * Core data model, transcribed exactly from docs/GAME_SPEC.md §3.
  * Do not add fields or loosen these types "for convenience"; every consumer
  * (content.ts, quiz.ts, filter.ts, and later the screens) relies on this
  * shape matching the spec precisely, since visibleTo() is written against it.
@@ -83,7 +83,7 @@ export type Screen =
   | 'certificate';
 
 // --- Quiz answers ---
-// Not part of §3's spec-defined types — added here because scoring.ts (§7.4)
+// Not part of §3's spec-defined types, added here because scoring.ts (§7.4)
 // and the Quiz screen (Phase 4) both need a shared shape for "what the user
 // picked" per question type. Keyed by question id in App state.
 

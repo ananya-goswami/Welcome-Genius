@@ -1,5 +1,5 @@
 /**
- * The card face content (module label, title, body). Purely presentational —
+ * The card face content (module label, title, body). Purely presentational:
  * the 3D flip transform and AnimatePresence mounting live in JourneyScreen,
  * which owns the transition; this component just renders one card's content.
  */

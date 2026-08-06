@@ -1,5 +1,5 @@
 /**
- * The golden-rule gating function — implemented exactly per the contract in
+ * The golden-rule gating function, implemented exactly per the contract in
  * docs/GAME_SPEC.md §3.4. Use this to filter both storyCards and quizBank;
  * never write a second, parallel filtering rule anywhere else in the app
  * (CLAUDE.md rule 1).

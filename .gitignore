@@ -3,11 +3,11 @@ dist
 dist-ssr
 *.local
 
-# Scratch Playwright verification scripts used during development — not a
+# Scratch Playwright verification scripts used during development, not a
 # maintained test suite, just throwaway checks run against dist/ each phase.
 .verify/
 
-# Secrets — §10.5. Never commit the webhook URL or shared-secret token.
+# Secrets, §10.5. Never commit the webhook URL or shared-secret token.
 .env
 .env.*
 !.env.example

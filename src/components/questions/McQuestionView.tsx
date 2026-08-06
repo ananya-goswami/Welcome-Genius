@@ -1,6 +1,6 @@
 /**
  * Multiple choice. Option ORDER is shuffled at render time on a copy (§7.1)
- * — the source array in quiz.ts is never mutated, and the stored answer
+ *, the source array in quiz.ts is never mutated, and the stored answer
  * always references the option's original index so scoring.ts's
  * `selectedIndex === question.correctIndex` check needs no changes.
  */
@@ -25,7 +25,7 @@ function shuffledWithOriginalIndex(options: string[]): Array<{ text: string; ori
 
 export default function McQuestionView({ question, value, onChange }: McQuestionViewProps) {
   // Shuffled once per question, not on every re-render (e.g. while the user
-  // is still deciding) — re-shuffling mid-question would be disorienting.
+  // is still deciding), re-shuffling mid-question would be disorienting.
   const options = useMemo(() => shuffledWithOriginalIndex(question.options), [question.id]);
 
   return (

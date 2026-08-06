@@ -1,9 +1,9 @@
 /**
  * The Screen state machine (§4). This is the single source of truth for
- * `path` (role/gender) and all session state — CLAUDE.md rule: do not
+ * `path` (role/gender) and all session state, CLAUDE.md rule: do not
  * duplicate this state anywhere else. Screens are dumb: they receive data
  * and callbacks, they never read storyCards/quizBank or call visibleTo()
- * themselves (that would be a second, parallel filtering rule — rule 1).
+ * themselves (that would be a second, parallel filtering rule, rule 1).
  */
 import { useMemo, useState, type ReactNode } from 'react';
 import type { Screen, UserPath, Role, Gender, QuizAnswer, QuizAnswers } from './types';
@@ -28,12 +28,12 @@ export default function App() {
   const [quizAnswers, setQuizAnswers] = useState<QuizAnswers>({});
   const [result, setResult] = useState<ScoreResult | null>(null);
   const [certificateName, setCertificateName] = useState('');
-  // Generated once, at the moment of passing (§7.5) — not on every render,
+  // Generated once, at the moment of passing (§7.5), not on every render,
   // and not re-generated while the user is still typing their name.
   const [certificateId, setCertificateId] = useState<string | null>(null);
   const [completedDate, setCompletedDate] = useState<Date | null>(null);
   // Increments on every failed attempt, never resets (§5.5). Not shown to
-  // the user — travels with the Phase 8 logging payload only.
+  // the user, travels with the Phase 8 logging payload only.
   const [attemptNumber, setAttemptNumber] = useState(1);
 
   // The ONE place visibleTo() is applied to storyCards (rule 1).
@@ -42,7 +42,7 @@ export default function App() {
     [path]
   );
 
-  // Only valid once path is fully answered (Filter 1, +2 for FTE) — guarded
+  // Only valid once path is fully answered (Filter 1, +2 for FTE), guarded
   // by only being read once `screen` has actually reached quiz/results, so
   // selectQuizForPath's dev-mode "gender must be set" assertion never fires
   // on the placeholder `path` above.
@@ -104,7 +104,7 @@ export default function App() {
   }
 
   function handleRetry() {
-    // §5.5: reset journeyIndex/answers/score ONLY — path is untouched, and
+    // §5.5: reset journeyIndex/answers/score ONLY, path is untouched, and
     // attemptNumber increments but is never reset.
     setAttemptNumber((n) => n + 1);
     setJourneyIndex(0);

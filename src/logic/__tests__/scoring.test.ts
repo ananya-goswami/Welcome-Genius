@@ -51,7 +51,7 @@ describe('isCorrect', () => {
 
   it('Match: correct ONLY if every pair matches (all-or-nothing, §7.4)', () => {
     expect(isCorrect(match, { type: 'match', selected: { A: '1', B: '2', C: '3' } })).toBe(true);
-    // two of three right is still a fail — no partial credit
+    // two of three right is still a fail, no partial credit
     expect(isCorrect(match, { type: 'match', selected: { A: '1', B: '2', C: 'wrong' } })).toBe(false);
     expect(isCorrect(match, { type: 'match', selected: {} })).toBe(false);
   });
@@ -61,7 +61,7 @@ describe('isCorrect', () => {
   });
 
   it('a mismatched answer type never accidentally scores correct', () => {
-    // e.g. leftover state from a previous question type — must not coerce
+    // e.g. leftover state from a previous question type, must not coerce
     expect(isCorrect(mc, { type: 'tf', selectedAnswer: true })).toBe(false);
     expect(isCorrect(tf, { type: 'mc', selectedIndex: 2 })).toBe(false);
   });

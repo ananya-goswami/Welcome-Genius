@@ -1,17 +1,17 @@
 /**
- * Quiz bank — transcribed verbatim from docs/GAME_SPEC.md §7.2, plus the
+ * Quiz bank, transcribed verbatim from docs/GAME_SPEC.md §7.2, plus the
  * fixed assembly table from §7.3. Do not paraphrase, round, or "improve" any
- * figure/date/email/name here — see CLAUDE.md rule 2.
+ * figure/date/email/name here, see CLAUDE.md rule 2.
  *
  * MC option order is listed in the same fixed reference order as the spec
  * (correct answer marked via `correctIndex`); shuffle a COPY at render time
- * if desired (§7.1) — never mutate this source order.
+ * if desired (§7.1), never mutate this source order.
  */
 import type { McQuestion, TfQuestion, MatchQuestion, QuizQuestion, Role, Gender } from '../types';
 import { visibleTo } from '../logic/filter';
 
 // ---------------------------------------------------------------------------
-// MC — generic (all FTE, both roles, and Intern)
+// MC, generic (all FTE, both roles, and Intern)
 // ---------------------------------------------------------------------------
 
 const mc1: McQuestion = {
@@ -75,7 +75,7 @@ const mc5: McQuestion = {
 };
 
 // ---------------------------------------------------------------------------
-// MC — FTE only
+// MC, FTE only
 // ---------------------------------------------------------------------------
 
 const mc6: McQuestion = {
@@ -99,7 +99,7 @@ const mc7: McQuestion = {
 };
 
 // ---------------------------------------------------------------------------
-// MC — role-specific leave totals (ONE of these two is used, per role)
+// MC, role-specific leave totals (ONE of these two is used, per role)
 // ---------------------------------------------------------------------------
 
 const mc8a: McQuestion = {
@@ -123,7 +123,7 @@ const mc8b: McQuestion = {
 };
 
 // ---------------------------------------------------------------------------
-// MC — Intern only
+// MC, Intern only
 // ---------------------------------------------------------------------------
 
 const mc9: McQuestion = {
@@ -137,7 +137,7 @@ const mc9: McQuestion = {
 };
 
 // ---------------------------------------------------------------------------
-// TF — generic
+// TF, generic
 // ---------------------------------------------------------------------------
 
 const tf1: TfQuestion = {
@@ -159,7 +159,7 @@ const tf2: TfQuestion = {
 };
 
 // ---------------------------------------------------------------------------
-// TF — FTE only
+// TF, FTE only
 // ---------------------------------------------------------------------------
 
 const tf3: TfQuestion = {
@@ -181,7 +181,7 @@ const tf4: TfQuestion = {
 };
 
 // ---------------------------------------------------------------------------
-// TF — gender-specific (ONE of these two is used, per gender)
+// TF, gender-specific (ONE of these two is used, per gender)
 // ---------------------------------------------------------------------------
 
 const tf5a: TfQuestion = {
@@ -203,7 +203,7 @@ const tf5b: TfQuestion = {
 };
 
 // ---------------------------------------------------------------------------
-// TF — Intern only
+// TF, Intern only
 // ---------------------------------------------------------------------------
 
 const tf6: TfQuestion = {
@@ -225,7 +225,7 @@ const tf7: TfQuestion = {
 };
 
 // ---------------------------------------------------------------------------
-// Match — role-specific (ONE of these three is used, per role)
+// Match, role-specific (ONE of these three is used, per role)
 // ---------------------------------------------------------------------------
 
 const matchCentral: MatchQuestion = {
@@ -267,7 +267,7 @@ const matchIntern: MatchQuestion = {
   ],
 };
 
-/** Full bank — every question that exists, tagged with appliesTo. Not all of
+/** Full bank, every question that exists, tagged with appliesTo. Not all of
  * these are used by selectQuizForPath (see §7.3's note on TF-4/TF-7). */
 export const quizBank: QuizQuestion[] = [
   mc1, mc2, mc3, mc4, mc5, mc6, mc7, mc8a, mc8b, mc9,
@@ -276,7 +276,7 @@ export const quizBank: QuizQuestion[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// §7.3 — selectQuizForPath()
+// §7.3, selectQuizForPath()
 //
 // Implemented as an explicit lookup per the spec's implementation note: the
 // role-specific MC/Match substitution (8a vs 8b, central vs state match)
@@ -305,7 +305,7 @@ const QUIZ_TABLE: Record<PathKey, QuizQuestion[]> = {
   'central-none': [...FTE_LEADING, mc8a, tf1, tf2, tf3, tf5a, matchCentral],
   'state-none': [...FTE_LEADING, mc8b, tf1, tf2, tf3, tf5a, matchState],
   // Interns never have a gender (path.gender is always null, Filter 2 is
-  // skipped entirely per §5.2) — 'intern-none' is the only reachable Intern
+  // skipped entirely per §5.2), 'intern-none' is the only reachable Intern
   // key. The woman/man entries mirror it for the same Record-completeness
   // reason as above.
   'intern-woman': INTERN_QUIZ,
@@ -316,7 +316,7 @@ const QUIZ_TABLE: Record<PathKey, QuizQuestion[]> = {
 /**
  * Assembles the fixed 12-question (FTE) or 8-question (Intern) quiz for a
  * path, per the §7.3 table. Question ORDER is fixed and must not be
- * shuffled (§5.5) — only MC option order may be shuffled, at render time, on
+ * shuffled (§5.5), only MC option order may be shuffled, at render time, on
  * a copy.
  */
 export function selectQuizForPath(path: { role: Role; gender: Gender | null }): QuizQuestion[] {
@@ -326,13 +326,13 @@ export function selectQuizForPath(path: { role: Role; gender: Gender | null }): 
   if (import.meta.env.DEV) {
     if (path.role !== 'intern' && path.gender === null) {
       throw new Error(
-        `selectQuizForPath: role '${path.role}' reached quiz assembly with gender still null — Filter 2 must never be skipped for FTE paths (§5.3).`
+        `selectQuizForPath: role '${path.role}' reached quiz assembly with gender still null, Filter 2 must never be skipped for FTE paths (§5.3).`
       );
     }
     const bad = questions.filter((q) => !visibleTo(q, { role: path.role, gender: path.gender }));
     if (bad.length > 0) {
       throw new Error(
-        `selectQuizForPath: question(s) ${bad.map((q) => q.id).join(', ')} do not pass visibleTo() for path ${key} — a wrong-path question slipped into the fixed table.`
+        `selectQuizForPath: question(s) ${bad.map((q) => q.id).join(', ')} do not pass visibleTo() for path ${key}, a wrong-path question slipped into the fixed table.`
       );
     }
     const expectedTotal = path.role === 'intern' ? 8 : 12;

@@ -1,6 +1,6 @@
 /**
  * Swifty, rendered at a consistent on-screen size across all four poses and
- * crossfaded between them (§8 — "swap pose via crossfade... never a hard
+ * crossfaded between them (§8, "swap pose via crossfade... never a hard
  * cut"). The four PNGs have different natural canvases (welcome is
  * 1036x1036, the rest 504x504) with different padding, so sizing is fixed
  * by the wrapping box + object-contain rather than the image's own pixels,
@@ -8,6 +8,7 @@
  */
 import { AnimatePresence, motion } from 'framer-motion';
 import type { SwiftyPose } from '../types';
+import EyeBlinkOverlay from './EyeBlinkOverlay';
 
 interface SwiftyAvatarProps {
   pose: SwiftyPose;
@@ -43,6 +44,11 @@ export default function SwiftyAvatar({ pose, size = 'md', className = '' }: Swif
           transition={{ duration: 0.28, ease: 'easeInOut' }}
         />
       </AnimatePresence>
+      {/* Source images are square (1036x1036 / 504x504) inside a square box,
+          so object-contain fills edge-to-edge with no letterboxing, the
+          overlay's percentage coordinates line up with the source image's
+          own fractions with no offset math needed (see swiftyEyes.ts). */}
+      <EyeBlinkOverlay pose={pose} />
     </div>
   );
 }

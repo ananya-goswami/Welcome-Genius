@@ -1,13 +1,13 @@
 /**
  * Drag-to-match, scored all-or-nothing (§7.4). Built on the Pointer Events
  * API (pointerdown/move/up + setPointerCapture) rather than HTML5
- * drag-and-drop, which CLAUDE.md calls out as unreliable on mobile — a
+ * drag-and-drop, which CLAUDE.md calls out as unreliable on mobile, a
  * single set of handlers covers mouse, touch, and pen uniformly.
  *
  * Right-hand labels start in a shuffled tray; dragging one onto a left slot
  * assigns the pair. Tapping a filled slot clears it back to the tray.
  *
- * IMPORTANT: right-hand values are NOT always unique — match-state (§7.2)
+ * IMPORTANT: right-hand values are NOT always unique, match-state (§7.2)
  * has two pairs both worth "6 days" (Sick Leave, Casual Leave). Tracking
  * chips by their text alone would mean placing one "6 days" chip removes
  * BOTH from the tray, making the second slot impossible to fill. Each right
@@ -60,7 +60,7 @@ export default function MatchQuestionView({ question, value, onChange }: MatchQu
   const textOf = useMemo(() => Object.fromEntries(instances.map((r) => [r.id, r.text])), [instances]);
 
   // left label -> instance id. Initialized (once) from any incoming `value`
-  // by greedily matching texts to unused instances — duplicates are
+  // by greedily matching texts to unused instances, duplicates are
   // interchangeable, so which physical instance lands where doesn't matter.
   const [placedIds, setPlacedIds] = useState<Record<string, string>>(() => {
     if (!value) return {};
@@ -157,7 +157,7 @@ export default function MatchQuestionView({ question, value, onChange }: MatchQu
               <div className="w-2/5 text-right text-sm font-semibold text-cg-navy sm:text-base">
                 {pair.left}
               </div>
-              {/* Slots aren't draggable themselves (only tray chips are) —
+              {/* Slots aren't draggable themselves (only tray chips are);
                   tapping a filled slot clears it back to the tray instead. */}
               <div
                 ref={(el) => {
@@ -213,7 +213,7 @@ export default function MatchQuestionView({ question, value, onChange }: MatchQu
 
       {allPlaced && (
         <p className="mt-4 text-center text-sm text-cg-teal">
-          All matched — tap a filled slot to change it, or continue below.
+          All matched, tap a filled slot to change it, or continue below.
         </p>
       )}
     </div>

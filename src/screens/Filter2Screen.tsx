@@ -1,5 +1,5 @@
 /**
- * §5.3 — Filter 2: gender, FTE only. Never shown to Interns (App.tsx skips
+ * §5.3, Filter 2: gender, FTE only. Never shown to Interns (App.tsx skips
  * straight to Journey for role === 'intern').
  */
 import type { Gender } from '../types';
@@ -8,9 +8,11 @@ interface Filter2ScreenProps {
   onSelect: (gender: Gender) => void;
 }
 
+// Display labels only, the underlying Gender union ('woman' | 'man') is the
+// exact §3.1 type used throughout the data layer and is left unchanged.
 const GENDER_OPTIONS: Array<{ gender: Gender; label: string }> = [
-  { gender: 'woman', label: 'Woman' },
-  { gender: 'man', label: 'Man' },
+  { gender: 'woman', label: 'Female' },
+  { gender: 'man', label: 'Male' },
 ];
 
 export default function Filter2Screen({ onSelect }: Filter2ScreenProps) {

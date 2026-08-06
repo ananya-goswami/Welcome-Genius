@@ -1,7 +1,11 @@
 /**
- * §5.1 — full-bleed gradient, Swifty in "welcome" pose, title, subtitle,
- * single CTA. Phase 2 scaffolding: layout only, no animation yet (Phase 7).
+ * §5.1, full-bleed gradient, Swifty in "welcome" pose, title, subtitle,
+ * single CTA. Uses the shared SwiftyAvatar (default 'md' size) rather than
+ * its own <img>, so Swifty renders at the same size here as on every other
+ * screen, per §8's "consistent size across screens" rule.
  */
+import SwiftyAvatar from '../components/SwiftyAvatar';
+
 interface SplashScreenProps {
   onStart: () => void;
 }
@@ -9,11 +13,7 @@ interface SplashScreenProps {
 export default function SplashScreen({ onStart }: SplashScreenProps) {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-cg-splash px-6 py-12 text-center">
-      <img
-        src="/swifty/swifty-welcome.png"
-        alt="Swifty, the ConveGenius mascot, with wings spread in welcome"
-        className="w-48 max-w-full sm:w-56"
-      />
+      <SwiftyAvatar pose="welcome" />
 
       <h1 className="mt-8 font-display text-4xl font-bold tracking-tight text-cg-white sm:text-5xl">
         Welcome <span className="text-cg-teal">Genius</span>

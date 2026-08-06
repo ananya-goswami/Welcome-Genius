@@ -1,5 +1,5 @@
 /* Fonts via @fontsource packages, not a CDN <link>, so dev works offline (§8).
-   Latin subsets only — the full entrypoints ship Devanagari/Cyrillic/Greek/
+   Latin subsets only, the full entrypoints ship Devanagari/Cyrillic/Greek/
    Vietnamese too, which this UI never renders. */
 @import '@fontsource/baloo-2/latin-500.css';
 @import '@fontsource/baloo-2/latin-600.css';
@@ -13,11 +13,11 @@
 @tailwind utilities;
 
 @layer base {
-  /* Brand tokens — docs/GAME_SPEC.md §8. Mirrored in tailwind.config.ts. */
+  /* Brand tokens, docs/GAME_SPEC.md §8. Mirrored in tailwind.config.ts. */
   :root {
     --cg-indigo: #4b45a8; /* primary, headers, CTAs */
     --cg-teal: #7dcfc9; /* accent, progress bar fill, success states */
-    --cg-navy: #232048; /* body text — a dark navy derived from the indigo family, NOT pure black */
+    --cg-navy: #232048; /* body text, a dark navy derived from the indigo family, NOT pure black */
     --cg-cream: #fbf0e4; /* page background */
     --cg-lilac: #e9e5f7; /* card backgrounds */
     --cg-white: #ffffff; /* base surfaces */

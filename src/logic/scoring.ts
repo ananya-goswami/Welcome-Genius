@@ -1,5 +1,5 @@
 /**
- * Quiz scoring — implemented exactly per docs/GAME_SPEC.md §7.4 and §5.5.
+ * Quiz scoring, implemented exactly per docs/GAME_SPEC.md §7.4 and §5.5.
  *
  * - Each MC/TF question = 1 point if correct.
  * - Each Match question = 1 point only if ALL pairs are correct, else 0.
@@ -46,7 +46,7 @@ export function scoreQuiz(questions: QuizQuestion[], answers: QuizAnswers): Scor
   return { score, total, percentage, passed };
 }
 
-/** "X / Y correct (Z%)" — the exact certificate/log format from §7.5/§10.3. */
+/** "X / Y correct (Z%)", the exact certificate/log format from §7.5/§10.3. */
 export function formatScore(result: ScoreResult): string {
   return `${result.score} / ${result.total} correct (${result.percentage}%)`;
 }

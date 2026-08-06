@@ -1,7 +1,7 @@
 /**
  * Unit tests for the exact §3.4 gating contract. This is the single
  * function every content/quiz filter in the app relies on (CLAUDE.md rule 1)
- * — it needs to be bulletproof.
+ *, it needs to be bulletproof.
  */
 import { describe, it, expect } from 'vitest';
 import { visibleTo } from '../filter';

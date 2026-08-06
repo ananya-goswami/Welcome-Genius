@@ -1,5 +1,5 @@
 /**
- * Certificate content helpers — §7.5. Per the user's explicit decision:
+ * Certificate content helpers, §7.5. Per the user's explicit decision:
  * keep the SWFTY- ID format exactly as specced (HR may verify certificates
  * against it), only the visible footer text is rebranded to Welcome Genius.
  */
@@ -38,13 +38,13 @@ function yyyymmdd(date: Date): string {
   return `${y}${m}${d}`;
 }
 
-/** e.g. "SWFTY-CTL-20260805-K3P9" — generate once per certificate, not on
+/** e.g. "SWFTY-CTL-20260805-K3P9", generate once per certificate, not on
  * every render (the caller is responsible for holding it in state). */
 export function generateCertificateId(role: Role, date: Date): string {
   return `SWFTY-${ROLE_CODE[role]}-${yyyymmdd(date)}-${randomAlphanumeric(4)}`;
 }
 
-/** e.g. "5 August 2026" — matches the exact style in §7.5's example. */
+/** e.g. "5 August 2026", matches the exact style in §7.5's example. */
 export function formatCompletionDate(date: Date): string {
   return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
 }

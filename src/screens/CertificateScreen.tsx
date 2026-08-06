@@ -1,8 +1,8 @@
 /**
- * §5.6 / §7.5 — name capture, then the printable completion certificate.
+ * §5.6 / §7.5, name capture, then the printable completion certificate.
  * Certificate ID keeps the exact SWFTY- format per §7.5 (HR may verify
  * against it); only the visible footer text is rebranded to Welcome Genius
- * — this split was an explicit user decision, not a default.
+ *, this split was an explicit user decision, not a default.
  */
 import { useState } from 'react';
 import { motion } from 'framer-motion';

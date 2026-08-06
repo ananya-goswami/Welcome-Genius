@@ -1,5 +1,5 @@
 /**
- * §5.5 — one question per screen, fixed order (never shuffled — only MC
+ * §5.5, one question per screen, fixed order (never shuffled, only MC
  * option order shuffles, inside McQuestionView). Progress bar is indigo,
  * visually distinct from Journey's teal (§5.5). Forward-only: the spec is
  * silent on a Back button here (unlike Journey's explicit one in §5.4), and

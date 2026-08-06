@@ -1,6 +1,6 @@
 /**
- * §5.2 — Filter 1: role selection. Three large tappable cards.
- * Selecting Intern skips Filter 2 entirely (handled by the caller, App.tsx —
+ * §5.2, Filter 1: role selection. Three large tappable cards.
+ * Selecting Intern skips Filter 2 entirely (handled by the caller, App.tsx;
  * this component only reports the choice upward).
  */
 import type { Role } from '../types';

@@ -1,4 +1,4 @@
-# SwiftyStart — Full Game Specification
+# Welcome Genius, Full Game Specification
 
 Source of truth for the build. All content below is verified against the
 8 official ConveGenius policy PDFs (Central Leave Policy 2025, State Leave
@@ -10,12 +10,12 @@ Policy, CG POSH Policy) plus the HR Induction deck.
 
 ## 1. One-paragraph summary
 
-SwiftyStart is a single-session, mobile-first web game. A new joiner
+Welcome Genius is a single-session, mobile-first web game. A new joiner
 picks their role (Central FTE / State FTE / Intern) and, for FTEs, their
 gender (for parental-leave content only). They then tap through a
 Swifty-narrated story journey built entirely from content that applies
 to *their* path, take a short quiz sourced only from what they just
-read, and — on passing — receive an on-screen, HR-verifiable completion
+read, and, on passing, receive an on-screen, HR-verifiable completion
 certificate. Failing sends them back to the very start.
 
 ---
@@ -25,9 +25,9 @@ certificate. Failing sends them back to the very start.
 **A user must never see, in the journey or the quiz, any content that
 does not apply to their exact `{role, gender}` combination.**
 
-- Central ≠ State ≠ Intern — different leave numbers, different module
+- Central ≠ State ≠ Intern, different leave numbers, different module
   lists. Never blend or average them.
-- Woman ≠ Man for parental content — a man never sees the maternity
+- Woman ≠ Man for parental content, a man never sees the maternity
   card/question, a woman never sees the paternity card/question. Both
   see the adoption card/question (it applies to either parent).
 - Interns see ONLY: Welcome, Attendance, Holidays, Intern Leave, POSH,
@@ -35,7 +35,7 @@ does not apply to their exact `{role, gender}` combination.**
   finances, insurance, probation, travel, referral, or appraisal
   content, and Filter 2 (gender) is skipped entirely for them.
 
-This is enforced structurally (§3.4), not by hiding UI — an intern's
+This is enforced structurally (§3.4), not by hiding UI, an intern's
 component tree should never even receive FTE-only cards as props.
 
 ---
@@ -134,7 +134,7 @@ export function visibleTo<T extends { appliesTo: AppliesTo }>(
 }
 ```
 
-Use `visibleTo` to filter both `storyCards` and `quizBank` — never write
+Use `visibleTo` to filter both `storyCards` and `quizBank`, never write
 a second, parallel filtering rule anywhere else in the app.
 
 ---
@@ -144,14 +144,14 @@ a second, parallel filtering rule anywhere else in the app.
 ```
 SPLASH
   ↓ (tap Start)
-FILTER_1  — choose role: Central FTE / State FTE / Intern
+FILTER_1 , choose role: Central FTE / State FTE / Intern
   ↓
-FILTER_2  — choose gender: Woman / Man
+FILTER_2 , choose gender: Woman / Man
   (SKIPPED automatically if role === 'intern'; gender stays null)
   ↓
-JOURNEY   — sequential tap-through story cards, filtered by visibleTo()  ←─┐
+JOURNEY  , sequential tap-through story cards, filtered by visibleTo()  ←─┐
   ↓ (last card tapped "Next")                                             │
-QUIZ      — questions assembled by selectQuizForPath() (§7.3)             │
+QUIZ     , questions assembled by selectQuizForPath() (§7.3)             │
   ↓ (submit)                                                              │
 RESULTS                                                                   │
   ├─ PASS → CERTIFICATE (enter name if not already captured → show cert) │
@@ -160,7 +160,7 @@ RESULTS                                                                   │
 
 Note the fail loop returns to **JOURNEY**, not FILTER_1/2. `path` (role
 and gender) is set once per session and only re-enters the flow if the
-user explicitly restarts from the splash screen — there's no in-game
+user explicitly restarts from the splash screen, there's no in-game
 action that clears it. See §5.5 for the exact reset contract.
 
 Single enum drives rendering:
@@ -181,16 +181,16 @@ No router library needed. One top-level `<App>` component holds
 
 ### 5.1 Splash
 Full-bleed indigo/purple gradient background, Swifty in the "welcome"
-pose (wings spread), title "SwiftyStart", subtitle "Your ConveGenius
+pose (wings spread), title "Welcome Genius", subtitle "Your ConveGenius
 journey begins here", single CTA button "Let's go →".
 
-### 5.2 Filter 1 — Role
+### 5.2 Filter 1, Role
 Three large tappable cards: **Central FTE**, **State FTE**, **Intern**.
 Selecting one sets `path.role` and advances. If `role === 'intern'`,
 skip directly to Journey (set `path.gender = null`); otherwise go to
 Filter 2.
 
-### 5.3 Filter 2 — Gender (FTE only)
+### 5.3 Filter 2, Gender (FTE only)
 Two tappable cards: **Woman**, **Man**. Copy should make clear this is
 only used to show the correct parental-leave content, e.g. "So we show
 you the right parental leave info." Sets `path.gender`.
@@ -204,7 +204,7 @@ you the right parental leave info." Sets `path.gender`.
 
 ### 5.5 Quiz
 - Question set = `selectQuizForPath(path)` (§7.3), fixed order (do not
-  shuffle question order — shuffle MC option order only, so "no trick
+  shuffle question order, shuffle MC option order only, so "no trick
   options" stays true and correctness stays traceable while still
   avoiding rote memorization of option position).
 - One question per screen, progress bar = phase 2 of 2 (visually
@@ -215,16 +215,16 @@ you the right parental leave info." Sets `path.gender`.
   both quiz lengths:
   - FTE: 12 questions → need ≥ 11 correct (91.7%)
   - Intern: 8 questions → need ≥ 7 correct (87.5%)
-  A `match` question counts as ONE correct/incorrect unit — correct only
+  A `match` question counts as ONE correct/incorrect unit, correct only
   if every pair in it is matched correctly.
-- **Fail rule**: show a brief, kind Swifty message (no shaming copy —
+- **Fail rule**: show a brief, kind Swifty message (no shaming copy,
   e.g. "So close! Let's take another lap through the basics."), single
   CTA "Review and retry". On tap, reset `journeyIndex` to 0, clear all
-  `quizAnswers` and `score`, and set `screen = 'journey'` — **do not**
+  `quizAnswers` and `score`, and set `screen = 'journey'`, **do not**
   clear `path` (role/gender stay exactly as selected). The system
   already knows who this person is; there is no reason to make them
   re-answer Filter 1/2 on every retry. Increment a separate, never-reset
-  `attemptNumber` counter (starts at 1) — this travels with the logging
+  `attemptNumber` counter (starts at 1), this travels with the logging
   payload in §11 so HR can see how many tries someone needed, but it is
   NOT shown to the user and does not affect gameplay.
 
@@ -237,7 +237,7 @@ certificate. Certificate content spec: §7.5.
 
 ## 6. Story card content (verified, by module)
 
-Cards are written in Swifty's short, friendly narrating voice — 1 to 3
+Cards are written in Swifty's short, friendly narrating voice, 1 to 3
 sentences. `pose` suggestions given; adjust only within the 4 supplied
 poses (welcome / default / thinking / curious).
 
@@ -245,67 +245,67 @@ poses (welcome / default / thinking / curious).
 full FTE journey (~12 min) and ~11 cards for Intern (~5–6 min), both
 comfortably inside the ~13-minute journey budget.
 
-### Module: Welcome (all paths — 2 cards)
+### Module: Welcome (all paths, 2 cards)
 1. *(pose: welcome)* "Hi, I'm Swifty! 👋 Welcome to ConveGenius — the team behind SwiftChat, reaching 150M+ learners across India. Our mission: reach the unreached, and make quality learning a right, not a privilege."
 2. *(pose: default)* "I'll walk you through everything that matters for your role. Tap through, then a short quiz, then your completion certificate. Ready?"
 
-### Module: Attendance (all paths — 2 cards)
+### Module: Attendance (all paths, 2 cards)
 3. *(pose: default)* "First things first: download the Keka app. Clock in when you start work and clock out when you're done — every single day."
 4. *(pose: thinking)* "Miss a day? You can regularize it on Keka. But heads up — if a day's left blank by month-end, it gets auto-marked as Earned Leave or Leave Without Pay."
 
-### Module: Holidays (all paths — 1 card)
+### Module: Holidays (all paths, 1 card)
 5. *(pose: default)* "ConveGenius follows a January–December calendar year with 10 fixed holidays. Your HR calendar on Keka has the full list."
 
-### Module: Leaves — Central FTE only (3 cards)
+### Module: Leaves, Central FTE only (3 cards)
 6. *(pose: default)* "As a Central FTE, you get 32 leaves a year: 15 Earned, 8 Sick, 9 Casual."
 7. *(pose: thinking)* "Sick and Casual leave lapse at year-end — no carry forward. But Earned Leave is different: you can carry forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years)."
 8. *(pose: default)* "One more perk: if you leave the company, you can encash your unused Earned Leave at your last drawn basic pay."
 
-### Module: Leaves — State FTE only (3 cards)
+### Module: Leaves, State FTE only (3 cards)
 6. *(pose: default)* "As a State FTE, you get 27 leaves a year: 15 Earned, 6 Sick, 6 Casual."
 7. *(pose: thinking)* "Sick and Casual leave lapse at year-end — no carry forward. Earned Leave carries forward up to 10 days a year, capped at 45 days (under 5 years) or 60 days (5+ years)."
 8. *(pose: default)* "All leave — any type — can be taken in half-day or full-day chunks, and always needs your manager's approval, or it counts as unauthorized absence."
 
-### Module: Leaves — Intern only (1 card)
+### Module: Leaves, Intern only (1 card)
 6. *(pose: default)* "As an Intern, you get 1 leave per month, pro-rata, in half-day or full-day increments. Simple as that!"
 
-### Module: Parental — FTE only, gender-branched (2 cards)
+### Module: Parental, FTE only, gender-branched (2 cards)
 7/9. *(pose: default, shown to Woman only)* "Expecting? You're entitled to 26 weeks of paid maternity leave. Just give at least 10 weeks' notice before your due date so we can plan ahead."
 7/9. *(pose: default, shown to Man only)* "New dad? You get 14 working days of paternity leave, to be used within 2 months of your child's birth. It can't be carried forward, so plan the timing."
 8/10. *(pose: default, shown to ALL FTE regardless of gender)* "Adopting? Either parent can take 12 working weeks to bond with their new family member."
 
-### Module: Finances — FTE only (2 cards)
+### Module: Finances, FTE only (2 cards)
 9/11. *(pose: default)* "Head to 'My Finances' on Keka to check your salary breakup matches your offer letter."
 10/12. *(pose: thinking)* "Pick your tax regime: New regime = no declarations needed. Old regime = declare your taxes and upload proofs before the deadline Keka shows you. Payroll runs monthly, salary lands on the 5th."
 
-### Module: Insurance — FTE only (1 card)
+### Module: Insurance, FTE only (1 card)
 11/13. *(pose: default)* "You're covered! Health insurance includes you, your spouse, and up to 4 dependent children. Band 1–6 = ₹5 lakh cover, Band 7 and above = ₹10 lakh."
 
-### Module: Probation — FTE only (1 card)
+### Module: Probation, FTE only (1 card)
 12/14. *(pose: default)* "You're on probation for a period set in your offer letter (it varies by department). Pass it, and you'll get an automatic confirmation email. If it needs extending, your manager will tell you at least a week ahead."
 
-### Module: POSH (all paths — 2 cards)
+### Module: POSH (all paths, 2 cards)
 13/15. *(pose: default)* "ConveGenius is a POSH-compliant workplace — zero tolerance for sexual harassment, and everyone has the right to work with dignity."
 14/16. *(pose: thinking)* "If you ever need to raise a concern, reach out to reachout@convegenius.ai or any Internal Committee member — Harshali Dalal (President), Tanvi Butalia, Sri Nitya A, Utsav Thapliyal, Nitin Jain, or Anadya Girotra."
 
-### Module: Child Protection (all paths — 1 card)
+### Module: Child Protection (all paths, 1 card)
 15/17. *(pose: default)* "Every child who comes into contact with ConveGenius deserves safety and dignity. We hold a zero-tolerance stance on abuse, exploitation, and neglect — for all our stakeholders."
 
-### Module: On the Move — FTE only (2 cards)
+### Module: On the Move, FTE only (2 cards)
 16/18. *(pose: default)* "Traveling for work? Book via the Domestic Travel Policy on Keka — accommodation priority is Guest House first, then Service Apartment, then Hotel, and food's covered too (just skip the alcohol/tobacco on the bill)."
 17/19. *(pose: default)* "Local commute for official work? Claim it: ₹10/km by four-wheeler, ₹5/km by two-wheeler, or actuals for cabs/autos — all through Keka within 30 days of the expense."
 
-### Module: Referral — FTE only (2 cards)
+### Module: Referral, FTE only (2 cards)
 18/20. *(pose: default)* "Know someone great? Refer them through Keka. If they join and complete 90 days, you get a referral award — and so do they get a great place to work!"
 19/21. *(pose: curious)* "Bonus: our 'CG Hire Champs' campaign stacks up your total referral earnings toward mega prizes — from a digital watch all the way up to a Harley Davidson!"
 
-### Module: Appraisal — FTE only (1 card)
+### Module: Appraisal, FTE only (1 card)
 20/22. *(pose: default)* "Appraisals run on the Financial Year cycle. To be eligible for this cycle, you'll need to have joined before 30th September."
 
-### Module: Helpdesk (all paths — 1 card)
+### Module: Helpdesk (all paths, 1 card)
 21/23. *(pose: default)* "Got questions later? Raise a ticket anytime with Team HR, Team Admin, or Team Finance."
 
-### Module: Wrap-up (all paths — 1 card)
+### Module: Wrap-up (all paths, 1 card)
 22/24. *(pose: welcome)* "That's everything for your path! Time for a quick quiz to lock it in — you've got this."
 
 ---
@@ -318,11 +318,11 @@ comfortably inside the ~13-minute journey budget.
 - Options are plausible-but-clearly-different, not near-duplicates.
 - MC option *order* may be shuffled at render time; the question bank
   below lists them in a fixed reference order with the correct answer
-  marked — shuffle a copy, never mutate the source order.
+  marked, shuffle a copy, never mutate the source order.
 
 ### 7.2 Full question bank (tagged with appliesTo)
 
-**MC — generic (all FTE, both roles)**
+**MC, generic (all FTE, both roles)**
 - Q-MC-1 `[Attendance]` "What app do you use to clock in and out every day?"
   Options: Slack / **Keka** / Zoom / Notion → correct: Keka
   appliesTo: roles [central, state, intern]
@@ -339,7 +339,7 @@ comfortably inside the ~13-minute journey budget.
   Options: **HR, Admin, and Finance** / Only HR / Only IT / Only your manager → correct: option 1
   appliesTo: roles [central, state, intern]
 
-**MC — FTE only**
+**MC, FTE only**
 - Q-MC-6 `[Insurance]` "What's the insured amount for employees in Band 7 and above?"
   Options: ₹2 lakh / ₹5 lakh / **₹10 lakh** / ₹15 lakh → correct: ₹10 lakh
   appliesTo: roles [central, state]
@@ -347,7 +347,7 @@ comfortably inside the ~13-minute journey budget.
   Options: 31st March / 30th June / **30th September** / 31st December → correct: 30th September
   appliesTo: roles [central, state]
 
-**MC — role-specific leave totals (ONE of these two is used, per role)**
+**MC, role-specific leave totals (ONE of these two is used, per role)**
 - Q-MC-8a `[Leaves]` "How many total annual leaves does a Central FTE get?"
   Options: 27 / 30 / **32** / 35 → correct: 32
   appliesTo: roles [central]
@@ -355,36 +355,36 @@ comfortably inside the ~13-minute journey budget.
   Options: 24 / **27** / 30 / 32 → correct: 27
   appliesTo: roles [state]
 
-**MC — Intern only**
+**MC, Intern only**
 - Q-MC-9 `[Leaves]` "How many leaves does an Intern get per month?"
   Options: 0.5 / **1** / 2 / 3 → correct: 1
   appliesTo: roles [intern]
 
-**TF — generic**
+**TF, generic**
 - Q-TF-1 `[Child Protection]` "ConveGenius has a zero-tolerance approach to child abuse and exploitation." → **True**
   appliesTo: roles [central, state, intern]
 - Q-TF-2 `[Holidays]` "ConveGenius follows a January–December calendar year." → **True**
   appliesTo: roles [central, state, intern]
 
-**TF — FTE only**
+**TF, FTE only**
 - Q-TF-3 `[Leaves]` "Casual Leave and Sick Leave can be carried forward to the next year." → **False** (they lapse)
   appliesTo: roles [central, state]
 - Q-TF-4 `[Adoption]` "Adoption leave (12 weeks) is available only to women employees." → **False** (either parent)
   appliesTo: roles [central, state]
 
-**TF — gender-specific (ONE of these two is used, per gender)**
+**TF, gender-specific (ONE of these two is used, per gender)**
 - Q-TF-5a `[Parental]` "Female employees should give at least 10 weeks' notice before their expected delivery date." → **True**
   appliesTo: roles [central, state], genders [woman]
 - Q-TF-5b `[Parental]` "Paternity leave can be carried forward to the next year if unused." → **False** (must be used within 2 months, no carry forward)
   appliesTo: roles [central, state], genders [man]
 
-**TF — Intern only**
+**TF, Intern only**
 - Q-TF-6 `[Helpdesk]` "You can raise queries with HR, Admin, or Finance teams via a ticket." → **True**
   appliesTo: roles [intern]
 - Q-TF-7 `[Attendance]` "Interns also need to mark attendance on Keka." → **True**
   appliesTo: roles [intern]
 
-**Match — role-specific (ONE of these three is used, per role)**
+**Match, role-specific (ONE of these three is used, per role)**
 - Q-MATCH-central `[Leaves]` "Match each leave type to its annual count (Central FTE)."
   Pairs: Earned Leave ↔ 15 days, Sick Leave ↔ 8 days, Casual Leave ↔ 9 days
   appliesTo: roles [central]
@@ -395,13 +395,13 @@ comfortably inside the ~13-minute journey budget.
   Pairs: Keka ↔ Marking your daily attendance, POSH ↔ Protection from workplace harassment, Child Protection ↔ Zero-tolerance for child abuse
   appliesTo: roles [intern]
 
-### 7.3 Assembly per path — `selectQuizForPath(path)`
+### 7.3 Assembly per path, `selectQuizForPath(path)`
 
-Use this table exactly. It is the final, correct composition — do not
+Use this table exactly. It is the final, correct composition, do not
 re-derive it from `appliesTo` filtering alone (see implementation note
 below).
 
-| Path | MC — 7 (FTE) / 5 (Intern) | TF — 4 (FTE) / 2 (Intern) | Match — 1 | Total |
+| Path | MC, 7 (FTE) / 5 (Intern) | TF, 4 (FTE) / 2 (Intern) | Match, 1 | Total |
 |---|---|---|---|---|
 | Central + Woman | MC-1, MC-2, MC-3, MC-4, MC-6, MC-7, MC-8a | TF-1, TF-2, TF-3, TF-5a | MATCH-central | 12 |
 | Central + Man | MC-1, MC-2, MC-3, MC-4, MC-6, MC-7, MC-8a | TF-1, TF-2, TF-3, TF-5b | MATCH-central | 12 |
@@ -409,7 +409,7 @@ below).
 | State + Man | MC-1, MC-2, MC-3, MC-4, MC-6, MC-7, MC-8b | TF-1, TF-2, TF-3, TF-5b | MATCH-state | 12 |
 | Intern | MC-1, MC-2, MC-3, MC-4, MC-9 | TF-1, TF-6 | MATCH-intern | 8 |
 
-Notes on what's deliberately left out of the fixed set (still fine —
+Notes on what's deliberately left out of the fixed set (still fine,
 not every journey card needs a matching quiz item): TF-4 (Adoption) and
 TF-7 (Intern attendance) are not used, to keep counts exact at 12 and 8.
 Adoption content is still taught in the journey; it's just not one of
@@ -417,7 +417,7 @@ the 12 quiz items.
 
 > Implementation note: build `selectQuizForPath()` as an explicit
 > lookup (a small switch/object keyed by `${role}-${gender ?? 'none'}`)
-> returning a fixed, named list of question IDs per the table above —
+> returning a fixed, named list of question IDs per the table above;
 > do NOT derive it via generic `appliesTo` filtering alone, because the
 > role-specific MC/Match substitution (8a vs 8b, central vs state match)
 > needs explicit selection, not just inclusion filtering. Use
@@ -433,13 +433,13 @@ the 12 quiz items.
 ### 7.5 Certificate content
 - Learner name (typed in by user post-quiz)
 - Path label: "Central FTE" / "State FTE" / "Intern" (gender is not
-  shown on the certificate — it was only used for content targeting)
+  shown on the certificate, it was only used for content targeting)
 - Score: "X / Y correct (Z%)"
 - Date completed (system date, formatted e.g. "5 August 2026")
 - Certificate ID for HR verification: `SWFTY-{ROLE}-{YYYYMMDD}-{4 random
   alphanumeric chars}`, e.g. `SWFTY-CTL-20260805-K3P9`. Role codes: CTL
   (central), STT (state), INT (intern).
-- Footer line: "Completed via SwiftyStart · ConveGenius Induction"
+- Footer line: "Completed via Welcome Genius · ConveGenius Induction"
 
 ---
 
@@ -448,14 +448,14 @@ the 12 quiz items.
 ```css
 --cg-indigo: #4B45A8;   /* primary, headers, CTAs */
 --cg-teal: #7DCFC9;     /* accent, progress bar fill, success states */
---cg-navy: #232048;     /* body text — a dark navy derived from the indigo family, NOT pure black */
+--cg-navy: #232048;     /* body text, a dark navy derived from the indigo family, NOT pure black */
 --cg-cream: #FBF0E4;    /* page background */
 --cg-lilac: #E9E5F7;    /* card backgrounds */
 --cg-white: #FFFFFF;    /* base surfaces */
 ```
 
 - Corner radius: cards `rounded-3xl` (24px), buttons `rounded-full` or `rounded-2xl`.
-- Shadows: soft, colored (indigo-tinted), never harsh black — e.g. `shadow-[0_8px_24px_rgba(75,69,168,0.15)]`.
+- Shadows: soft, colored (indigo-tinted), never harsh black, e.g. `shadow-[0_8px_24px_rgba(75,69,168,0.15)]`.
 - Typography: a rounded/friendly display font for headers (e.g. Baloo 2
   or Fredoka via Google Fonts) + a clean body font (Inter). Load via
   `@fontsource` packages, not a CDN `<link>`, so it works offline in dev.
@@ -472,7 +472,7 @@ the 12 quiz items.
 ## 9. Suggested folder structure
 
 ```
-swiftystart/
+welcome-genius/
 ├─ public/
 │  └─ swifty/               (the 4 provided PNGs: welcome, default, thinking, curious)
 ├─ src/
@@ -525,30 +525,30 @@ requirement with zero custom access-control code:
 - **"Visible to 2 people, changeable via email"** → Google Sheets'
   native **Share** dialog *is* the access control. Add or remove a
   viewer/editor by typing their email address, at any time, with no
-  redeploy. This is exactly the mechanism being asked for — building a
+  redeploy. This is exactly the mechanism being asked for, building a
   custom login system to replicate it would be solving an already-
   solved problem.
 - **No backend to host, deploy, or pay for.** Apps Script runs on
   Google's infrastructure for free at this volume.
 - **HR gets a spreadsheet**, which is the format they'll actually want
-  to filter/sort/export from — not a raw database table.
+  to filter/sort/export from, not a raw database table.
 
 **When to reach for something heavier instead:** if you outgrow "a
-couple of admins checking a sheet" — e.g. you want a live dashboard,
+couple of admins checking a sheet", e.g. you want a live dashboard,
 role-based access for a growing HR team, or query/analytics on
-thousands of rows — migrate to **Supabase** (Postgres + row-level
+thousands of rows, migrate to **Supabase** (Postgres + row-level
 security + a real admin UI, still free at small scale). Don't build
 that now; it's roughly 3-4x the setup time for a benefit you don't need
 yet with 2 viewers.
 
-### 10.3 Data schema (one row per quiz submission — pass or fail)
+### 10.3 Data schema (one row per quiz submission, pass or fail)
 
 | Column | Example | Notes |
 |---|---|---|
 | Timestamp | 2026-08-05T14:32:00Z | server-side `new Date().toISOString()` at receipt |
 | Certificate ID | SWFTY-CTL-20260805-K3P9 | only present on a Pass row (§7.5); blank on Fail |
 | Name | Priya Sharma | as typed by the user |
-| Role | Central FTE | do NOT log gender — it was only ever used for content targeting, not identity, and there's no reason to store it |
+| Role | Central FTE | do NOT log gender, it was only ever used for content targeting, not identity, and there's no reason to store it |
 | Score | 11/12 | |
 | Percentage | 91.7% | |
 | Result | Pass / Fail | |
@@ -561,7 +561,7 @@ function doPost(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   const data = JSON.parse(e.postData.contents);
 
-  // simple shared-secret check — not real security, just spam filtering
+  // simple shared-secret check, not real security, just spam filtering
   if (data.token !== 'REPLACE_WITH_A_RANDOM_STRING') {
     return ContentService.createTextOutput('unauthorized');
   }
@@ -606,12 +606,12 @@ export async function logResult(payload: {
     });
   } catch (err) {
     console.error('Result logging failed (non-blocking):', err);
-    // deliberately no rethrow — logging must never block the UI
+    // deliberately no rethrow, logging must never block the UI
   }
 }
 ```
 
-`.env` (never commit this file — add it to `.gitignore`):
+`.env` (never commit this file, add it to `.gitignore`):
 ```
 VITE_LOG_ENDPOINT=https://script.google.com/macros/s/XXXXX/exec
 VITE_LOG_TOKEN=some-random-string-matching-the-apps-script-constant
@@ -622,14 +622,14 @@ VITE_LOG_TOKEN=some-random-string-matching-the-apps-script-constant
 2. Extensions → Apps Script, paste §10.4, replace the token string.
 3. Deploy as web app (see above), copy the `/exec` URL into `.env`.
 4. Sheet → **Share** → add the 2 people's emails as Viewer (or Editor if they need to annotate/filter live).
-5. To change who can see it later: reopen Share, add/remove emails. That's the entire "changeable via email" mechanism — no code touched.
+5. To change who can see it later: reopen Share, add/remove emails. That's the entire "changeable via email" mechanism, no code touched.
 
 ### 10.7 Privacy note
 Worth flagging, not blocking: you're logging employee names and quiz
 performance to a spreadsheet two people can see indefinitely. If
 ConveGenius has a data-retention or internal-privacy policy for
 performance-adjacent HR data, it's worth a 5-minute check that this is
-fine — it almost certainly is for an internal induction tool, but it's
+fine, it almost certainly is for an internal induction tool, but it's
 cheap to confirm now versus after 200 rows exist.
 
 ---
@@ -642,9 +642,9 @@ cheap to confirm now versus after 200 rows exist.
 - [ ] An intern never sees any of: parental, finances, insurance, probation, travel, referral, appraisal cards or questions.
 - [ ] Journey "Back" button works and doesn't lose progress; it's disabled on the first card.
 - [ ] Quiz drag-to-match works with touch (test on an actual phone or Chrome DevTools touch emulation), not just mouse drag.
-- [ ] Failing the quiz clears journey position, all quiz answers, and score — but role and gender are untouched, and the user lands back on the *first* journey card, not a filter screen. Verify by failing once, noting the role shown, and confirming after "Review and retry" the same role's content reappears with no filter prompt.
+- [ ] Failing the quiz clears journey position, all quiz answers, and score, but role and gender are untouched, and the user lands back on the *first* journey card, not a filter screen. Verify by failing once, noting the role shown, and confirming after "Review and retry" the same role's content reappears with no filter prompt.
 - [ ] Certificate cannot be reached without passing (guard the route).
-- [ ] Nothing is written to localStorage/sessionStorage/cookies — check DevTools Application tab.
+- [ ] Nothing is written to localStorage/sessionStorage/cookies, check DevTools Application tab.
 - [ ] Works at 375px width with no horizontal scroll.
 - [ ] Total FTE quiz = exactly 12 questions; total Intern quiz = exactly 8. Verify counts in a dev-only console assertion.
 - [ ] A logging call fires on both Pass and Fail (check the Sheet after a deliberate fail), and a killed/blocked network request never prevents the Results or Certificate screen from rendering.

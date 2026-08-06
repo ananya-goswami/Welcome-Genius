@@ -1,10 +1,11 @@
 /**
- * §5.6 / §5.5 fail branch — pass routes onward to Certificate, fail shows a
+ * §5.6 / §5.5 fail branch, pass routes onward to Certificate, fail shows a
  * kind Swifty message with a single "Review and retry" CTA (no shaming
- * copy, per §5.5). Confetti-on-pass is Phase 7; this is the correct
- * branching, copy, and entrance motion.
+ * copy, per §5.5). Confetti burst fires once, on the pass branch only (§8).
  */
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import confetti from 'canvas-confetti';
 import SwiftyAvatar from '../components/SwiftyAvatar';
 import type { ScoreResult } from '../logic/scoring';
 import { formatScore } from '../logic/scoring';
@@ -16,6 +17,18 @@ interface ResultsScreenProps {
 }
 
 export default function ResultsScreen({ result, onContinue, onRetry }: ResultsScreenProps) {
+  useEffect(() => {
+    if (!result.passed) return;
+    confetti({
+      particleCount: 140,
+      spread: 75,
+      origin: { y: 0.55 },
+      colors: ['#4B45A8', '#7DCFC9', '#FBF0E4', '#E9E5F7'], // brand tokens, §8
+    });
+    // Deliberately empty deps: fire exactly once per mount (each arrival at
+    // a passing Results screen), never re-fire on a prop change.
+  }, []);
+
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-cg-cream px-6 py-12 text-center">
       <motion.div
