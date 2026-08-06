@@ -18,7 +18,7 @@ export interface LogResultPayload {
 export async function logResult(payload: LogResultPayload): Promise<void> {
   const endpoint = import.meta.env.VITE_LOG_ENDPOINT;
   if (!endpoint) {
-    // Not configured yet (§10.6 setup is a manual, no-code step) — the app
+    // Not configured yet (§10.6 setup is a manual, no-code step); the app
     // must run fine without it, so this is an info log, not an error.
     console.info('Result logging skipped: VITE_LOG_ENDPOINT is not set.');
     return;

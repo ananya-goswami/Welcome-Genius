@@ -316,7 +316,7 @@ const tf5b: TfQuestion = {
 // ---------------------------------------------------------------------------
 
 // Widened from roles:['intern'] to all roles: the Helpdesk journey card
-// (§6, "all paths — 1 card") teaches this to every path, not just Interns,
+// (§6, "all paths, 1 card") teaches this to every path, not just Interns,
 // so it belongs in the general TF pool for FTE paths too.
 const tf6: TfQuestion = {
   id: 'tf-6',
@@ -387,7 +387,7 @@ export const quizBank: QuizQuestion[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// §7.3, selectQuizForPath() — randomized draw
+// §7.3, selectQuizForPath(), randomized draw
 //
 // Product decision (superseding the original fixed-list §7.3 table, per
 // explicit user request): repeat playthroughs were showing the exact same
